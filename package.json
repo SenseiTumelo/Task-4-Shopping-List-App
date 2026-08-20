@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"vite\" \"json-server --watch db.json --port 3001\"",
+    "dev": "concurrently \"vite\" \"json-server --watch src/db.json --port 3001\"",
     "dev:client": "vite",
     "dev:server": "json-server --watch db.json --port 3001",
     "build": "tsc -b && vite build",
@@ -15,10 +15,13 @@
     "@reduxjs/toolkit": "^2.12.0",
     "@tailwindcss/vite": "^4.3.3",
     "axios": "^1.19.0",
+    "concurrently": "^10.0.5",
     "json-server": "^1.0.0-beta.15",
+    "lucide-react": "^1.33.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-redux": "^9.3.0",
+    "react-router-dom": "^7.18.2",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
