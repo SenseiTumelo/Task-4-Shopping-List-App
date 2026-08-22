@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ShoppingBasket } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../app/hook";
