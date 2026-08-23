@@ -5,6 +5,12 @@
       "name": "Tumelo",
       "email": "tumelo@example.com",
       "password": "123456"
+    },
+    {
+      "id": "xTV_m2AIlPM",
+      "name": "r",
+      "email": "r@GMAIL.COM",
+      "password": "rrrrrr"
     }
   ],
   "lists": [
@@ -14,14 +20,54 @@
       "name": "Groceries",
       "color": "purple",
       "items": [
-        { "id": "item-1", "name": "Milk", "category": "Dairy", "completed": true },
-        { "id": "item-2", "name": "Bread", "category": "Bakery", "completed": true },
-        { "id": "item-3", "name": "Eggs", "category": "Dairy", "completed": false },
-        { "id": "item-4", "name": "Chicken", "category": "Meat", "completed": true },
-        { "id": "item-5", "name": "Tomatoes", "category": "Vegetables", "completed": false },
-        { "id": "item-6", "name": "Shampoo", "category": "Personal Care", "completed": false },
-        { "id": "item-7", "name": "Detergent", "category": "Household", "completed": false },
-        { "id": "item-8", "name": "Bananas", "category": "Fruits", "completed": false }
+        {
+          "id": "item-1",
+          "name": "Milk",
+          "category": "Dairy",
+          "completed": true
+        },
+        {
+          "id": "item-2",
+          "name": "Bread",
+          "category": "Bakery",
+          "completed": true
+        },
+        {
+          "id": "item-3",
+          "name": "Eggs",
+          "category": "Dairy",
+          "completed": false
+        },
+        {
+          "id": "item-4",
+          "name": "Chicken",
+          "category": "Meat",
+          "completed": true
+        },
+        {
+          "id": "item-5",
+          "name": "Tomatoes",
+          "category": "Vegetables",
+          "completed": false
+        },
+        {
+          "id": "item-6",
+          "name": "Shampoo",
+          "category": "Personal Care",
+          "completed": false
+        },
+        {
+          "id": "item-7",
+          "name": "Detergent",
+          "category": "Household",
+          "completed": false
+        },
+        {
+          "id": "item-8",
+          "name": "Bananas",
+          "category": "Fruits",
+          "completed": false
+        }
       ]
     },
     {
@@ -30,10 +76,60 @@
       "name": "Weekend BBQ",
       "color": "green",
       "items": [
-        { "id": "item-9", "name": "Beef", "category": "Meat", "completed": false },
-        { "id": "item-10", "name": "Sausages", "category": "Meat", "completed": true },
-        { "id": "item-11", "name": "Cooldrink", "category": "Drinks", "completed": false }
+        {
+          "id": "item-9",
+          "name": "Beef",
+          "category": "Meat",
+          "completed": false
+        },
+        {
+          "id": "item-10",
+          "name": "Sausages",
+          "category": "Meat",
+          "completed": true
+        },
+        {
+          "id": "item-11",
+          "name": "Cooldrink",
+          "category": "Drinks",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": "a88qOfQZQjA",
+      "userId": "74111777-e7b6-4ace-a18e-1fed6d844027",
+      "name": "groceries",
+      "color": "purple",
+      "items": [
+        {
+          "id": "152fefed-7473-4863-909e-d90f1ad2fd94",
+          "name": "eggs",
+          "category": "General",
+          "completed": false
+        },
+        {
+          "id": "59418d30-6a44-4674-94d6-d52358410068",
+          "name": "sugar",
+          "category": "Household",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": "oN25R7aZTL4",
+      "userId": "74111777-e7b6-4ace-a18e-1fed6d844027",
+      "name": "house material",
+      "color": "green",
+      "items": [
+        {
+          "id": "c781ffd9-385f-4a16-90f1-2f04e0be864e",
+          "name": "chicken",
+          "category": "Meat",
+          "completed": false
+        }
       ]
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
