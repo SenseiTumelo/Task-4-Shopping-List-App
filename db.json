@@ -1,0 +1,39 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Tumelo",
+      "email": "tumelo@example.com",
+      "password": "123456"
+    }
+  ],
+  "lists": [
+    {
+      "id": "list-1",
+      "userId": "1",
+      "name": "Groceries",
+      "color": "purple",
+      "items": [
+        { "id": "item-1", "name": "Milk", "category": "Dairy", "completed": true },
+        { "id": "item-2", "name": "Bread", "category": "Bakery", "completed": true },
+        { "id": "item-3", "name": "Eggs", "category": "Dairy", "completed": false },
+        { "id": "item-4", "name": "Chicken", "category": "Meat", "completed": true },
+        { "id": "item-5", "name": "Tomatoes", "category": "Vegetables", "completed": false },
+        { "id": "item-6", "name": "Shampoo", "category": "Personal Care", "completed": false },
+        { "id": "item-7", "name": "Detergent", "category": "Household", "completed": false },
+        { "id": "item-8", "name": "Bananas", "category": "Fruits", "completed": false }
+      ]
+    },
+    {
+      "id": "list-2",
+      "userId": "1",
+      "name": "Weekend BBQ",
+      "color": "green",
+      "items": [
+        { "id": "item-9", "name": "Beef", "category": "Meat", "completed": false },
+        { "id": "item-10", "name": "Sausages", "category": "Meat", "completed": true },
+        { "id": "item-11", "name": "Cooldrink", "category": "Drinks", "completed": false }
+      ]
+    }
+  ]
+}
