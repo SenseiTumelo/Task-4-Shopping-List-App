@@ -27,12 +27,12 @@ export default function Register() {
   };
 
   return (
-    <main className="grid min-h-screen place-items-center bg-[linear-gradient(135deg,#ffd600_0_25%,#f4f3ef_25%_100%)] p-[25px]">
+    <main className="grid min-h-screen place-items-center  p-[25px]">
       <section className="w-[min(480px,100%)] border-4 border-[#111] bg-white p-[30px] shadow-[10px_10px_#111] max-[520px]:p-[22px]">
         <div className="mb-[25px] grid justify-items-center text-center">
           <ShoppingBasket size={42} strokeWidth={3} />
 
-          <h1 className="my-1 font-['Archivo_Black'] text-[44px] tracking-[-2px] max-[520px]:text-4xl">
+          <h1 className="my-1 font-['Darker Grotesque'] text-[44px] tracking-[-2px] max-[520px]:text-4xl">
             SHOPLIST
           </h1>
 
@@ -41,7 +41,7 @@ export default function Register() {
           </span>
         </div>
 
-        <h2 className="mb-1 font-['Archivo_Black'] text-[27px]">
+        <h2 className="mb-1 font-['Darker Grotesque'] text-[27px]">
           CREATE ACCOUNT
         </h2>
 
