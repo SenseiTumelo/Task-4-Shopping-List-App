@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ShoppingBasket } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../app/hook";
 import { register } from "../features/auth/authSlice";
+import loginBG from "../assets/loginBG.png"
 
 export default function Register() {
   const dispatch = useAppDispatch();
@@ -27,27 +28,24 @@ export default function Register() {
   };
 
   return (
-    <main className="grid min-h-screen place-items-center  p-[25px]">
+    <main className="grid min-h-screen place-items-center  p-[25px] bg-[#ffd600]">
       <section className="w-[min(480px,100%)] border-4 border-[#111] bg-white p-[30px] shadow-[10px_10px_#111] max-[520px]:p-[22px]">
+        
         <div className="mb-[25px] grid justify-items-center text-center">
-          <ShoppingBasket size={42} strokeWidth={3} />
-
+         
           <h1 className="my-1 font-['Darker Grotesque'] text-[44px] tracking-[-2px] max-[520px]:text-4xl">
             SHOPLIST
+
           </h1>
 
-          <span className="inline-block border-[3px] border-[#111] bg-[#ff6f9f] px-2.5 py-2 font-black shadow-[4px_4px_#111]">
-            MAKE YOUR LIST. GET IT DONE.
-          </span>
+
         </div>
 
-        <h2 className="mb-1 font-['Darker Grotesque'] text-[27px]">
+        <h2 className="mb-1 font-['Darker Grotesque'] text-[27px] text-center">
           CREATE ACCOUNT
         </h2>
 
-        <p className="font-semibold text-[#555]">
-          Start organising your shopping in seconds.
-        </p>
+
 
         <form onSubmit={submit} className="grid gap-2">
           <label className="mt-2 font-black">Full name</label>
@@ -76,7 +74,6 @@ export default function Register() {
             required
             className="border-[3px] border-[#111] bg-white p-3 outline-none focus:shadow-[4px_4px_#111]"
           />
-
           {error && (
             <div className="mt-2 border-[3px] border-[#111] bg-[#ff5c5c] p-2.5 font-extrabold">
               {error}
@@ -92,7 +89,7 @@ export default function Register() {
           </button>
         </form>
 
-        <p className="my-[25px_0_0] text-center font-bold">
+        <p className="mt-4 text-center font-bold">
           Already have an account?{" "}
           <Link
             to="/login"
