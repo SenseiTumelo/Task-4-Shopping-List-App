@@ -7,10 +7,16 @@
       "password": "123456"
     },
     {
-      "id": "xTV_m2AIlPM",
-      "name": "r",
-      "email": "r@GMAIL.COM",
-      "password": "rrrrrr"
+      "id": "MipCCHbRxF4",
+      "name": "Tumza",
+      "email": "tumelo1@example.com",
+      "password": "123456"
+    },
+    {
+      "id": "vdp9LEbsp80",
+      "name": "wefdwefdef",
+      "email": "tumeloe@example.com",
+      "password": "123456"
     }
   ],
   "lists": [
@@ -129,6 +135,73 @@
           "completed": false
         }
       ]
+    },
+    {
+      "id": "YIxKIEuVII0",
+      "userId": "ce60a5e7-3cf1-4028-b645-e21db9bf6f1a",
+      "name": "grocerries",
+      "color": "purple",
+      "items": [
+        {
+          "id": "81aca1dd-6c0f-4ac3-afb5-ad14b749e83e",
+          "name": "Vaseline",
+          "category": "Household",
+          "completed": true
+        },
+        {
+          "id": "dd909ef5-ebf9-47c6-8bc0-e10d1db4d333",
+          "name": "bread",
+          "category": "Bakery",
+          "completed": true
+        },
+        {
+          "id": "56f00b09-55c9-4727-a95d-af1a8a73bc05",
+          "name": "sugar",
+          "category": "General",
+          "completed": false
+        },
+        {
+          "id": "db04aa0e-b0ca-41ac-ad7f-a339c66e4862",
+          "name": "soap",
+          "category": "Household",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": "GNNYj21D5a8",
+      "userId": "ce60a5e7-3cf1-4028-b645-e21db9bf6f1a",
+      "name": "Car parts",
+      "color": "green",
+      "items": []
+    },
+    {
+      "id": "bxZ7XBJVQKo",
+      "userId": "ce60a5e7-3cf1-4028-b645-e21db9bf6f1a",
+      "name": "gardening",
+      "color": "yellow",
+      "items": []
+    },
+    {
+      "id": "njzCCLeIrJY",
+      "userId": "1",
+      "name": "groceries",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "0YwVGG7DBp4",
+      "userId": "1",
+      "name": "wdwdwd",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "gWJoyG_hegk",
+      "userId": "1",
+      "name": "wswswsws",
+      "color": "purple",
+      "items": []
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

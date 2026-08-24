@@ -19,7 +19,7 @@ const initialState: ListsState = {
 export const fetchLists = createAsyncThunk(
   "lists/fetchLists",
   async (userId: string) => api.getLists(userId)
-);
+); 
 
 export const createShoppingList = createAsyncThunk(
   "lists/create",

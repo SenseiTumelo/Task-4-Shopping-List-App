@@ -126,16 +126,16 @@ export default function Dashboard() {
         <div className="sidebar-brand">
           <ShoppingCart size={36} strokeWidth={3} />
           <h1>SHOPLIST</h1>
-          <span>KEEP LIFE<br />ORGANISED.</span>
+          <span>shop with passion</span>
         </div>
 
         <nav>
-          <button className="nav-link active"><Home /> DASHBOARD</button>
+          <button className="nav-link active"><Home />DASHBOARD</button>
           <button className="nav-link"><ClipboardList /> MY LISTS</button>
           <button className="nav-link"><Star /> FAVOURITES</button>
-          <button className="nav-link"><Archive /> ARCHIVED</button>
-          <button className="nav-link"><Settings /> SETTINGS</button>
+          <button className="nav-link"><Settings /> PROFILE</button>
         </nav>
+        
 
         <div className="profile-card">
           <div className="avatar">{user.name.charAt(0).toUpperCase()}</div>
@@ -159,7 +159,7 @@ export default function Dashboard() {
           </button>
 
           <div>
-            <h2>GOOD MORNING, {user.name.toUpperCase()}!</h2>
+            <h2>Hello, {user.name.toUpperCase()}!</h2>
             <p>HERE'S WHAT'S ON YOUR LIST TODAY.</p>
           </div>
 
@@ -289,7 +289,6 @@ export default function Dashboard() {
           </aside>
         </section>
 
-        <footer>© 2026 SHOPLIST. BUILT TO KEEP YOUR LIFE ORGANISED.</footer>
       </main>
     </div>
   );

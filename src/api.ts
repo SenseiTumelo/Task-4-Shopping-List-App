@@ -12,7 +12,7 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
 
   return response.status === 204 ? (undefined as T) : response.json();
 }
-
+ 
 export const api = {
   getUsers: () => request<import("./types").User[]>("/users"),
   createUser: (user: import("./types").User) =>
