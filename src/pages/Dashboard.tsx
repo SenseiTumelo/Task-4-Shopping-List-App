@@ -26,7 +26,7 @@ import {
 } from "../features/lists/listsSlice";
 import type { ShoppingItem } from "../types";
 
-import emptyStateImage from "../assets/empty-state.jpg";
+
 
 const colors = ["purple", "green", "yellow", "pink", "blue"];
 
