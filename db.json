@@ -1,0 +1,382 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Tumelo",
+      "email": "tumelo@example.com",
+      "password": "123456"
+    },
+    {
+      "id": "MipCCHbRxF4",
+      "name": "Tumza",
+      "email": "tumelo1@example.com",
+      "password": "123456"
+    },
+    {
+      "id": "vdp9LEbsp80",
+      "name": "wefdwefdef",
+      "email": "tumeloe@example.com",
+      "password": "123456"
+    },
+    {
+      "id": "FPcfqNE2gx4",
+      "name": "Tumi",
+      "email": "t1@example.com",
+      "password": "1234564"
+    }
+  ],
+  "lists": [
+    {
+      "id": "list-1",
+      "userId": "1",
+      "name": "Groceries",
+      "color": "purple",
+      "items": [
+        {
+          "id": "item-1",
+          "name": "Milk",
+          "category": "Dairy",
+          "completed": true
+        },
+        {
+          "id": "item-2",
+          "name": "Bread",
+          "category": "Bakery",
+          "completed": true
+        },
+        {
+          "id": "item-3",
+          "name": "Eggs",
+          "category": "Dairy",
+          "completed": false
+        },
+        {
+          "id": "item-4",
+          "name": "Chicken",
+          "category": "Meat",
+          "completed": true
+        },
+        {
+          "id": "item-5",
+          "name": "Tomatoes",
+          "category": "Vegetables",
+          "completed": false
+        },
+        {
+          "id": "item-6",
+          "name": "Shampoo",
+          "category": "Personal Care",
+          "completed": false
+        },
+        {
+          "id": "item-7",
+          "name": "Detergent",
+          "category": "Household",
+          "completed": false
+        },
+        {
+          "id": "item-8",
+          "name": "Bananas",
+          "category": "Fruits",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": "list-2",
+      "userId": "1",
+      "name": "Weekend BBQ",
+      "color": "green",
+      "items": [
+        {
+          "id": "item-9",
+          "name": "Beef",
+          "category": "Meat",
+          "completed": false
+        },
+        {
+          "id": "item-10",
+          "name": "Sausages",
+          "category": "Meat",
+          "completed": true
+        },
+        {
+          "id": "item-11",
+          "name": "Cooldrink",
+          "category": "Drinks",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": "a88qOfQZQjA",
+      "userId": "74111777-e7b6-4ace-a18e-1fed6d844027",
+      "name": "groceries",
+      "color": "purple",
+      "items": [
+        {
+          "id": "152fefed-7473-4863-909e-d90f1ad2fd94",
+          "name": "eggs",
+          "category": "General",
+          "completed": false
+        },
+        {
+          "id": "59418d30-6a44-4674-94d6-d52358410068",
+          "name": "sugar",
+          "category": "Household",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": "oN25R7aZTL4",
+      "userId": "74111777-e7b6-4ace-a18e-1fed6d844027",
+      "name": "house material",
+      "color": "green",
+      "items": [
+        {
+          "id": "c781ffd9-385f-4a16-90f1-2f04e0be864e",
+          "name": "chicken",
+          "category": "Meat",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": "YIxKIEuVII0",
+      "userId": "ce60a5e7-3cf1-4028-b645-e21db9bf6f1a",
+      "name": "grocerries",
+      "color": "purple",
+      "items": [
+        {
+          "id": "81aca1dd-6c0f-4ac3-afb5-ad14b749e83e",
+          "name": "Vaseline",
+          "category": "Household",
+          "completed": true
+        },
+        {
+          "id": "dd909ef5-ebf9-47c6-8bc0-e10d1db4d333",
+          "name": "bread",
+          "category": "Bakery",
+          "completed": true
+        },
+        {
+          "id": "56f00b09-55c9-4727-a95d-af1a8a73bc05",
+          "name": "sugar",
+          "category": "General",
+          "completed": false
+        },
+        {
+          "id": "db04aa0e-b0ca-41ac-ad7f-a339c66e4862",
+          "name": "soap",
+          "category": "Household",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": "GNNYj21D5a8",
+      "userId": "ce60a5e7-3cf1-4028-b645-e21db9bf6f1a",
+      "name": "Car parts",
+      "color": "green",
+      "items": []
+    },
+    {
+      "id": "bxZ7XBJVQKo",
+      "userId": "ce60a5e7-3cf1-4028-b645-e21db9bf6f1a",
+      "name": "gardening",
+      "color": "yellow",
+      "items": []
+    },
+    {
+      "id": "njzCCLeIrJY",
+      "userId": "1",
+      "name": "groceries",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "0YwVGG7DBp4",
+      "userId": "1",
+      "name": "wdwdwd",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "gWJoyG_hegk",
+      "userId": "1",
+      "name": "wswswsws",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "KqaXeHOo9O0",
+      "userId": "1",
+      "name": "ewfewffewf",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "rBVQkLIqZqI",
+      "userId": "1",
+      "name": "Groceries",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "pM8jGA9TFnA",
+      "userId": "1",
+      "name": "Groceries",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "IqR5oVBf8fI",
+      "userId": "1",
+      "name": "List 1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "PZzaM5NjZJA",
+      "userId": "1",
+      "name": "Tumelo",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "xEUaS4ZMaDg",
+      "userId": "1",
+      "name": "list 1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "_KqXLUd8ckg",
+      "userId": "1",
+      "name": "list 1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "0f_jW9_-p-E",
+      "userId": "1",
+      "name": "list 1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "YaIr3IQzOqg",
+      "userId": "1",
+      "name": "Nl",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "XAJ3_t9VZdw",
+      "userId": "1",
+      "name": "list 1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "LnTXYVbRQKI",
+      "userId": "1",
+      "name": "fgxjcghjjftghyj",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "ZUsswb9OGLk",
+      "userId": "1",
+      "name": "sdfvsdv",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "bqRoHA7mKNI",
+      "userId": "1",
+      "name": "list 1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "ZcxR8tnrtWI",
+      "userId": "1",
+      "name": "list no1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "yyHVqcz5PvU",
+      "userId": "1",
+      "name": "sdvdskvdsv",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "vZmc_kf5reI",
+      "userId": "1",
+      "name": "dadsadsad",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "J4kAljmLmBI",
+      "userId": "1",
+      "name": "fewfewfewfew",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "GSFm4-rw_BM",
+      "userId": "1",
+      "name": "45y45y45y",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "QZiMEVE_FvM",
+      "userId": "1",
+      "name": "ertertrtet",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "cCQfZbPr850",
+      "userId": "1",
+      "name": "wefewfwef",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "ITIL7VPdN2U",
+      "userId": "1",
+      "name": "list 2",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "XnkKI43tzyU",
+      "userId": "1",
+      "name": "list 2",
+      "color": "green",
+      "items": []
+    },
+    {
+      "id": "pV4_BQ6a0qI",
+      "userId": "1",
+      "name": "1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "xNap7bxJ9m0",
+      "userId": "1",
+      "name": "wefewfwef",
+      "color": "purple",
+      "items": []
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
