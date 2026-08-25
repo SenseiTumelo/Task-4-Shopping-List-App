@@ -26,7 +26,7 @@ import {
 } from "../features/lists/listsSlice";
 import type { ShoppingItem } from "../types";
 
-
+import emptyStateImg from "../assets/empty-state.jpg";
 
 const colors = ["purple", "green", "yellow", "pink", "blue"];
 
@@ -301,7 +301,10 @@ export default function Dashboard() {
 
                 {!loading && visibleItems.length === 0 && (
                  
-                  <></>
+                <div className="empty-state justify-center align-center flex flex-col">
+                  <img src={emptyStateImg} className=" w-[10rem] place-content-center" alt="Empty state" />
+                  <p>No list item available</p>
+                </div>
                 )}
 
                 {visibleItems.map((item) => (

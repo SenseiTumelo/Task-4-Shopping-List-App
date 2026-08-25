@@ -376,6 +376,40 @@
       "name": "wefewfwef",
       "color": "purple",
       "items": []
+    },
+    {
+      "id": "p_k5ZkBtphw",
+      "userId": "MipCCHbRxF4",
+      "name": "List 2",
+      "color": "green",
+      "items": [
+        {
+          "id": "e0ec8ef6-56a2-48c5-a315-39bac1d93151",
+          "name": "wqewqeqweqweqweqwe",
+          "category": "General",
+          "completed": true
+        },
+        {
+          "id": "5ec885a0-b608-415d-9287-8651f8f5a67a",
+          "name": "three",
+          "category": "General",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": "zVUhkX-mpy4",
+      "userId": "1",
+      "name": "dsdsadasdasd",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "2ymMPfDr0J8",
+      "userId": "1",
+      "name": "List 1",
+      "color": "purple",
+      "items": []
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
