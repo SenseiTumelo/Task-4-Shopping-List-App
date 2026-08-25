@@ -376,20 +376,6 @@
       "name": "wefewfwef",
       "color": "purple",
       "items": []
-    },
-    {
-      "id": "D9f1jlo3QuA",
-      "userId": "MipCCHbRxF4",
-      "name": "List No 1",
-      "color": "purple",
-      "items": [
-        {
-          "id": "e6860126-96ba-4e87-8dc4-1a3b6fdc2c65",
-          "name": "Eggs",
-          "category": "Dairy",
-          "completed": true
-        }
-      ]
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
