@@ -1,9 +1,7 @@
 import { type FormEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ShoppingBasket } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../app/hook";
 import { register } from "../features/auth/authSlice";
-import loginBG from "../assets/loginBG.png"
 
 export default function Register() {
   const dispatch = useAppDispatch();

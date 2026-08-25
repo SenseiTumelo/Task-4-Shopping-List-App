@@ -17,6 +17,12 @@
       "name": "wefdwefdef",
       "email": "tumeloe@example.com",
       "password": "123456"
+    },
+    {
+      "id": "FPcfqNE2gx4",
+      "name": "Tumi",
+      "email": "t1@example.com",
+      "password": "1234564"
     }
   ],
   "lists": [
@@ -209,6 +215,181 @@
       "name": "ewfewffewf",
       "color": "purple",
       "items": []
+    },
+    {
+      "id": "rBVQkLIqZqI",
+      "userId": "1",
+      "name": "Groceries",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "pM8jGA9TFnA",
+      "userId": "1",
+      "name": "Groceries",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "IqR5oVBf8fI",
+      "userId": "1",
+      "name": "List 1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "PZzaM5NjZJA",
+      "userId": "1",
+      "name": "Tumelo",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "xEUaS4ZMaDg",
+      "userId": "1",
+      "name": "list 1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "_KqXLUd8ckg",
+      "userId": "1",
+      "name": "list 1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "0f_jW9_-p-E",
+      "userId": "1",
+      "name": "list 1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "YaIr3IQzOqg",
+      "userId": "1",
+      "name": "Nl",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "XAJ3_t9VZdw",
+      "userId": "1",
+      "name": "list 1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "LnTXYVbRQKI",
+      "userId": "1",
+      "name": "fgxjcghjjftghyj",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "ZUsswb9OGLk",
+      "userId": "1",
+      "name": "sdfvsdv",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "bqRoHA7mKNI",
+      "userId": "1",
+      "name": "list 1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "ZcxR8tnrtWI",
+      "userId": "1",
+      "name": "list no1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "yyHVqcz5PvU",
+      "userId": "1",
+      "name": "sdvdskvdsv",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "vZmc_kf5reI",
+      "userId": "1",
+      "name": "dadsadsad",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "J4kAljmLmBI",
+      "userId": "1",
+      "name": "fewfewfewfew",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "GSFm4-rw_BM",
+      "userId": "1",
+      "name": "45y45y45y",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "QZiMEVE_FvM",
+      "userId": "1",
+      "name": "ertertrtet",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "cCQfZbPr850",
+      "userId": "1",
+      "name": "wefewfwef",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "ITIL7VPdN2U",
+      "userId": "1",
+      "name": "list 2",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "XnkKI43tzyU",
+      "userId": "1",
+      "name": "list 2",
+      "color": "green",
+      "items": []
+    },
+    {
+      "id": "pV4_BQ6a0qI",
+      "userId": "1",
+      "name": "1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "xNap7bxJ9m0",
+      "userId": "1",
+      "name": "wefewfwef",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "D9f1jlo3QuA",
+      "userId": "MipCCHbRxF4",
+      "name": "List No 1",
+      "color": "purple",
+      "items": [
+        {
+          "id": "e6860126-96ba-4e87-8dc4-1a3b6fdc2c65",
+          "name": "Eggs",
+          "category": "Dairy",
+          "completed": true
+        }
+      ]
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
