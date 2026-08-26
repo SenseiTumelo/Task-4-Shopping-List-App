@@ -1,37 +1,59 @@
+import type { ShoppingList, User } from "./types";
+
 const API_URL = "http://localhost:3001";
 
-async function request<T>(path: string, options?: RequestInit): Promise<T> {
+async function request<T>(
+  path: string,
+  options?: RequestInit,
+): Promise<T> {
   const response = await fetch(`${API_URL}${path}`, {
     headers: { "Content-Type": "application/json" },
-    ...options
+    ...options,
   });
 
   if (!response.ok) {
     throw new Error(`Request failed: ${response.status}`);
   }
 
-  return response.status === 204 ? (undefined as T) : response.json();
+  return response.status === 204
+    ? (undefined as T)
+    : response.json();
 }
- 
+
 export const api = {
-  getUsers: () => request<import("./types").User[]>("/users"),
-  createUser: (user: import("./types").User) =>
-    request<import("./types").User>("/users", {
+  getUsers: () => request<User[]>("/users"),
+
+  createUser: (user: User) =>
+    request<User>("/users", {
       method: "POST",
-      body: JSON.stringify(user)
+      body: JSON.stringify(user),
     }),
-  getLists: (userId: string) =>
-    request<import("./types").ShoppingList[]>(`/lists?userId=${encodeURIComponent(userId)}`),
-  createList: (list: import("./types").ShoppingList) =>
-    request<import("./types").ShoppingList>("/lists", {
-      method: "POST",
-      body: JSON.stringify(list)
-    }),
-  updateList: (id: string, list: import("./types").ShoppingList) =>
-    request<import("./types").ShoppingList>(`/lists/${id}`, {
+
+  updateUser: (id: string, user: User) =>
+    request<User>(`/users/${id}`, {
       method: "PUT",
-      body: JSON.stringify(list)
+      body: JSON.stringify(user),
     }),
+
+  getLists: (userId: string) =>
+    request<ShoppingList[]>(
+      `/lists?userId=${encodeURIComponent(userId)}`,
+    ),
+
+  createList: (list: ShoppingList) =>
+    request<ShoppingList>("/lists", {
+      method: "POST",
+      body: JSON.stringify(list),
+    }),
+
+  updateList: (id: string, list: ShoppingList) =>
+    request<ShoppingList>(`/lists/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(list),
+    }),
+
   deleteList: (id: string) =>
-    request<void>(`/lists/${id}`, { method: "DELETE" })
+    request<void>(`/lists/${id}`, {
+      method: "DELETE",
+    }),
 };
