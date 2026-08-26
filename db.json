@@ -8,9 +8,9 @@
     },
     {
       "id": "MipCCHbRxF4",
-      "name": "Tumza",
+      "name": "Sensei",
       "email": "tumelo1@example.com",
-      "password": "123456"
+      "password": "aaaaaa"
     },
     {
       "id": "vdp9LEbsp80",
@@ -374,6 +374,27 @@
       "id": "xNap7bxJ9m0",
       "userId": "1",
       "name": "wefewfwef",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "zVUhkX-mpy4",
+      "userId": "1",
+      "name": "dsdsadasdasd",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "2ymMPfDr0J8",
+      "userId": "1",
+      "name": "List 1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "m4tFPyVKyOk",
+      "userId": "1",
+      "name": "llist 1",
       "color": "purple",
       "items": []
     }

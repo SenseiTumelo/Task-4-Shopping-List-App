@@ -13,50 +13,115 @@ const saved = localStorage.getItem("shoplist_user");
 const initialState: AuthState = {
   user: saved ? JSON.parse(saved) : null,
   loading: false,
-  error: null
+  error: null,
+};
+
+const safeUser = (user: User) => {
+  const { password: _password, ...userWithoutPassword } = user;
+  return userWithoutPassword as User;
 };
 
 export const login = createAsyncThunk(
   "auth/login",
-  async ({ email, password }: { email: string; password: string }, thunkAPI) => {
+  async (
+    { email, password }: { email: string; password: string },
+    thunkAPI,
+  ) => {
     const users = await api.getUsers();
+
     const user = users.find(
-      (item) => item.email.toLowerCase() === email.toLowerCase() && item.password === password
+      (item) =>
+        item.email.toLowerCase() === email.toLowerCase() &&
+        item.password === password,
     );
 
-    if (!user) return thunkAPI.rejectWithValue("Incorrect email or password.");
+    if (!user) {
+      return thunkAPI.rejectWithValue("Incorrect email or password.");
+    }
 
-    const safeUser = { ...user, password: undefined };
-    localStorage.setItem("shoplist_user", JSON.stringify(safeUser));
-    return safeUser;
-  }
+    const userToSave = safeUser(user);
+    localStorage.setItem("shoplist_user", JSON.stringify(userToSave));
+    return userToSave;
+  },
 );
 
 export const register = createAsyncThunk(
   "auth/register",
   async (
-    { name, email, password }: { name: string; email: string; password: string },
-    thunkAPI
+    {
+      name,
+      email,
+      password,
+    }: {
+      name: string;
+      email: string;
+      password: string;
+    },
+    thunkAPI,
   ) => {
     const users = await api.getUsers();
 
     if (users.some((user) => user.email.toLowerCase() === email.toLowerCase())) {
-      return thunkAPI.rejectWithValue("An account with this email already exists.");
+      return thunkAPI.rejectWithValue(
+        "An account with this email already exists.",
+      );
     }
 
     const user: User = {
       id: crypto.randomUUID(),
       name,
       email,
-      password
+      password,
     };
 
     await api.createUser(user);
 
-    const safeUser = { ...user, password: undefined };
-    localStorage.setItem("shoplist_user", JSON.stringify(safeUser));
-    return safeUser;
-  }
+    const userToSave = safeUser(user);
+    localStorage.setItem("shoplist_user", JSON.stringify(userToSave));
+    return userToSave;
+  },
+);
+
+export const updateProfile = createAsyncThunk(
+  "auth/updateProfile",
+  async (
+    {
+      id,
+      name,
+      currentPassword,
+      newPassword,
+    }: {
+      id: string;
+      name: string;
+      currentPassword?: string;
+      newPassword?: string;
+    },
+    thunkAPI,
+  ) => {
+    const users = await api.getUsers();
+    const existingUser = users.find((user) => user.id === id);
+
+    if (!existingUser) {
+      return thunkAPI.rejectWithValue("User was not found.");
+    }
+
+    if (newPassword && existingUser.password !== currentPassword) {
+      return thunkAPI.rejectWithValue("Current password is incorrect.");
+    }
+
+    const updatedUser: User = {
+      ...existingUser,
+      name,
+      password: newPassword || existingUser.password,
+    };
+
+    await api.updateUser(id, updatedUser);
+
+    const userToSave = safeUser(updatedUser);
+    localStorage.setItem("shoplist_user", JSON.stringify(userToSave));
+
+    return userToSave;
+  },
 );
 
 const authSlice = createSlice({
@@ -66,7 +131,7 @@ const authSlice = createSlice({
     logout(state) {
       state.user = null;
       localStorage.removeItem("shoplist_user");
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -93,8 +158,20 @@ const authSlice = createSlice({
       .addCase(register.rejected, (state, action) => {
         state.loading = false;
         state.error = String(action.payload || "Registration failed.");
+      })
+      .addCase(updateProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(updateProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = String(action.payload || "Profile update failed.");
       });
-  }
+  },
 });
 
 export const { logout } = authSlice.actions;

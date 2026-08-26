@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import type { ReactNode } from "react";
 import {
   Check,
   ClipboardList,
@@ -8,10 +9,11 @@ import {
   Plus,
   Settings,
   ShoppingCart,
-  Star,
   Trash2,
   X,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 import { useAppDispatch, useAppSelector } from "../app/hook";
 import { logout } from "../features/auth/authSlice";
 import {
@@ -25,17 +27,19 @@ import {
   updateShoppingList,
 } from "../features/lists/listsSlice";
 import type { ShoppingItem } from "../types";
-
-import emptyStateImage from "../assets/empty-state.jpg";
+import emptyStateImg from "../assets/empty-state.jpg";
 
 const colors = ["purple", "green", "yellow", "pink", "blue"];
 
 export default function Dashboard() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const user = useAppSelector((state) => state.auth.user)!;
   const { lists, selectedListId, loading } = useAppSelector(
     (state) => state.lists,
   );
+
   const selectedList =
     lists.find((list) => list.id === selectedListId) ?? lists[0];
 
@@ -55,6 +59,7 @@ export default function Dashboard() {
 
   const completed =
     selectedList?.items.filter((item) => item.completed).length ?? 0;
+
   const total = selectedList?.items.length ?? 0;
   const percent = total ? Math.round((completed / total) * 100) : 0;
 
@@ -63,7 +68,8 @@ export default function Dashboard() {
       totalLists: lists.length,
       totalItems: lists.reduce((sum, list) => sum + list.items.length, 0),
       completed: lists.reduce(
-        (sum, list) => sum + list.items.filter((item) => item.completed).length,
+        (sum, list) =>
+          sum + list.items.filter((item) => item.completed).length,
         0,
       ),
     }),
@@ -161,13 +167,7 @@ export default function Dashboard() {
             <Home />
             DASHBOARD
           </button>
-          <button className="nav-link">
-            <ClipboardList /> MY LISTS
-          </button>
-          <button className="nav-link">
-            <Star /> FAVOURITES
-          </button>
-          <button className="nav-link">
+          <button className="nav-link" onClick={() => navigate("/profile")}>
             <Settings /> PROFILE
           </button>
         </nav>
@@ -259,6 +259,7 @@ export default function Dashboard() {
                   <button
                     className="brutal-button yellow"
                     onClick={() => setShowChecked(!showChecked)}
+                    title="Hide the checked items/Show show all items of a list"
                   >
                     {showChecked ? "HIDE CHECKED" : "SHOW CHECKED"}
                   </button>
@@ -300,8 +301,10 @@ export default function Dashboard() {
                 )}
 
                 {!loading && visibleItems.length === 0 && (
-                 
-                  <></>
+                  <div className="empty-state justify-center align-center flex flex-col">
+                    <img src={emptyStateImg} className=" w-[10rem] place-content-center" alt="Empty state" />
+                    <p>No list item available</p>
+                  </div>
                 )}
 
                 {visibleItems.map((item) => (
@@ -445,7 +448,7 @@ function Stat({
   label,
   value,
 }: {
-  icon: React.ReactNode;
+  icon: ReactNode;
   label: string;
   value: number;
 }) {
