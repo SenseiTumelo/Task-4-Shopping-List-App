@@ -259,6 +259,7 @@ export default function Dashboard() {
                   <button
                     className="brutal-button yellow"
                     onClick={() => setShowChecked(!showChecked)}
+                    title="Hide the checked items/Show show all items of a list"
                   >
                     {showChecked ? "HIDE CHECKED" : "SHOW CHECKED"}
                   </button>
