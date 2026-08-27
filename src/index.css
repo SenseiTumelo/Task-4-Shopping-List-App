@@ -545,3 +545,11 @@
 .profile-notification.error {
   background: #ff7070;
 }
+
+.item-image {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border: 2px solid #111;
+  border-radius: 6px;
+}

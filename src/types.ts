@@ -10,6 +10,9 @@ export type ShoppingItem = {
   name: string;
   category: string;
   completed: boolean;
+  imageUrl?: string;
+  photographer?: string;
+  photographerUrl?: string;
 };
 
 export type ShoppingList = {
@@ -19,3 +22,4 @@ export type ShoppingList = {
   color: string;
   items: ShoppingItem[];
 };
+

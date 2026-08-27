@@ -80,11 +80,14 @@ export default function Dashboard() {
   const addItem = async () => {
     if (!selectedList || !newItem.trim()) return;
 
+    const itemImage = await findItemImage(newItem.trim());
+
     const item: ShoppingItem = {
       id: crypto.randomUUID(),
       name: newItem.trim(),
       category,
       completed: false,
+      ...itemImage,
     };
 
     dispatch(addItemLocal({ listId: selectedList.id, item }));
@@ -325,6 +328,13 @@ export default function Dashboard() {
                     >
                       {item.category}
                     </span>
+                    {item.imageUrl && (
+                      <img
+                        className="item-image"
+                        src={item.imageUrl}
+                        alt={item.name}
+                      />
+                    )}
                     <button
                       className="delete-item"
                       onClick={() => removeItem(item.id)}
