@@ -28,6 +28,7 @@ import {
 } from "../features/lists/listsSlice";
 import type { ShoppingItem } from "../types";
 import emptyStateImg from "../assets/empty-state.jpg";
+import { findItemImage } from "../services/unsplash";
 
 const colors = ["purple", "green", "yellow", "pink", "blue"];
 
