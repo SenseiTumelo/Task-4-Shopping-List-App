@@ -1,6 +1,5 @@
-@import "tailwindcss";
-
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Darker+Grotesque:wght@300..900&display=swap');
+@import "tailwindcss";
 
 
 @utility font-inherit {
@@ -9,7 +8,8 @@
 
 @theme {
   --font-sans: "Bricolage Grotesque", sans-serif;
-  --font-display: "Darker Grotesque", sans-serif;
+/*--font-display: "Darker Grotesque", sans-serif;*/
+  --font-display: "Bricolage Grotesque", sans-serif;
 }
 
 @layer base {
@@ -232,6 +232,11 @@
 
   .brutal-button.yellow {
     @apply bg-[#ffd600];
+  }
+
+  .brutal-button.red {
+    @apply bg-[#ff5c5c];
+    color: #111;
   }
 
   .danger-icon,
@@ -552,4 +557,9 @@
   object-fit: cover;
   border: 2px solid #111;
   border-radius: 6px;
+}
+
+.delete-confirm-card p {
+  margin: 1rem 0 1.5rem;
+  font-weight: 600;
 }

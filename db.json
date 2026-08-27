@@ -397,6 +397,13 @@
       "name": "llist 1",
       "color": "purple",
       "items": []
+    },
+    {
+      "id": "rdwPg1LRNYU",
+      "userId": "MipCCHbRxF4",
+      "name": "Groceries",
+      "color": "purple",
+      "items": []
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

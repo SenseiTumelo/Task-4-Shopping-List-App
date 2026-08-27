@@ -50,6 +50,7 @@ export default function Dashboard() {
   const [mobileNav, setMobileNav] = useState(false);
   const [showCreateList, setShowCreateList] = useState(false);
   const [newListName, setNewListName] = useState("");
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   useEffect(() => {
     dispatch(fetchLists(user.id));
@@ -152,9 +153,9 @@ export default function Dashboard() {
 
   const removeList = async () => {
     if (!selectedList) return;
-    if (window.confirm(`Delete "${selectedList.name}"?`)) {
-      dispatch(deleteShoppingList(selectedList.id));
-    }
+
+    await dispatch(deleteShoppingList(selectedList.id));
+    setShowDeleteConfirm(false);
   };
 
   return (
@@ -269,7 +270,7 @@ export default function Dashboard() {
                   </button>
                   <button
                     className="danger-icon"
-                    onClick={removeList}
+                    onClick={() => setShowDeleteConfirm(true)}
                     title="Delete list"
                   >
                     <Trash2 />
@@ -445,6 +446,31 @@ export default function Dashboard() {
 
               <button className="brutal-button blue" onClick={createList}>
                 <Plus /> CREATE LIST
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showDeleteConfirm && selectedList && (
+        <div className="modal-backdrop">
+          <div className="create-list-card delete-confirm-card">
+            <h3>DELETE LIST?</h3>
+            <p>
+              Are you sure you want to delete{" "}
+              <strong>{selectedList.name}</strong>?
+            </p>
+
+            <div className="modal-actions">
+              <button
+                className="brutal-button yellow"
+                onClick={() => setShowDeleteConfirm(false)}
+              >
+                CANCEL
+              </button>
+
+              <button className="brutal-button red" onClick={removeList}>
+                <Trash2 /> DELETE
               </button>
             </div>
           </div>
