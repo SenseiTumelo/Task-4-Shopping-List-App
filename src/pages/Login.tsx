@@ -1,6 +1,5 @@
 import { type FormEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ShoppingBasket } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../app/hook";
 import { login } from "../features/auth/authSlice";
 
@@ -40,7 +39,7 @@ export default function Login() {
           {error && <div className="error-box">{error}</div>}
 
           <button className="brutal-button blue" disabled={loading}>
-            {loading ? "LOGGING IN..." : "LOG IN →"}
+            {loading ? "LOGGING IN..." : "LOG IN "}
           </button>
         </form>
 

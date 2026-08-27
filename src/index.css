@@ -1,6 +1,5 @@
-@import "tailwindcss";
-
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Darker+Grotesque:wght@300..900&display=swap');
+@import "tailwindcss";
 
 
 @utility font-inherit {
@@ -9,7 +8,8 @@
 
 @theme {
   --font-sans: "Bricolage Grotesque", sans-serif;
-  --font-display: "Darker Grotesque", sans-serif;
+/*--font-display: "Darker Grotesque", sans-serif;*/
+  --font-display: "Bricolage Grotesque", sans-serif;
 }
 
 @layer base {
@@ -234,6 +234,11 @@
     @apply bg-[#ffd600];
   }
 
+  .brutal-button.red {
+    @apply bg-[#ff5c5c];
+    color: #111;
+  }
+
   .danger-icon,
   .delete-item {
     @apply border-[3px] border-[#111] bg-[#ff5c5c] p-2;
@@ -258,7 +263,7 @@
   }
 
   .item-row {
-    @apply grid min-h-[54px] grid-cols-[35px_1fr_auto_45px] items-center gap-2 border-b-2 border-[#111] p-1.5;
+    @apply grid min-h-[54px] grid-cols-[45px_1fr_auto_auto_45px] items-center gap-2 border-b-2 border-[#111] p-1.5;
   }
 
   .item-row:last-child {
@@ -544,4 +549,125 @@
 
 .profile-notification.error {
   background: #ff7070;
+}
+
+.item-image {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border: 2px solid #111;
+  border-radius: 6px;
+}
+
+.delete-confirm-card p {
+  margin: 1rem 0 1.5rem;
+  font-weight: 600;
+}
+
+.items-panel.purple {
+  background: #a978ff;
+}
+
+.items-panel.green {
+  background: #35d56f;
+}
+
+.items-panel.yellow {
+  background: #ffd600;
+}
+
+.items-panel.pink {
+  background: #ff6f9f;
+}
+
+.items-panel.blue {
+  background: #65b8ff;
+}
+
+.small-button {
+  padding: 0.6rem 0.8rem;
+}
+
+.small-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px #111;
+}
+
+.profile-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.8fr) minmax(320px, 1.2fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.profile-details-card {
+  padding: 2rem;
+  border: 4px solid #111;
+  background: #a978ff;
+  box-shadow: 8px 8px 0 #111;
+  text-align: center;
+}
+
+.profile-large-avatar {
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 1rem;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 4px solid #111;
+  background: #ffd600;
+  font-size: 4rem;
+  font-weight: 800;
+}
+
+.profile-large-avatar img,
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-details-card h2 {
+  margin: 0;
+}
+
+.profile-details-card > p {
+  margin-top: 0.25rem;
+}
+
+.profile-detail {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-top: 2px solid #111;
+  text-align: left;
+}
+
+.profile-detail span {
+  font-weight: 700;
+}
+
+.picture-upload {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  padding: 0.7rem 1rem;
+  margin-bottom: 1rem;
+  border: 3px solid #111;
+  background: #ffd600;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.profile-message {
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .profile-layout {
+    grid-template-columns: 1fr;
+  }
 }

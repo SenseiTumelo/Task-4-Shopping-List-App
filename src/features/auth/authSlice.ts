@@ -90,11 +90,13 @@ export const updateProfile = createAsyncThunk(
       name,
       currentPassword,
       newPassword,
+      profilePicture,
     }: {
       id: string;
       name: string;
       currentPassword?: string;
       newPassword?: string;
+      profilePicture?: string;
     },
     thunkAPI,
   ) => {
@@ -113,6 +115,7 @@ export const updateProfile = createAsyncThunk(
       ...existingUser,
       name,
       password: newPassword || existingUser.password,
+      profilePicture: profilePicture || existingUser.profilePicture,
     };
 
     await api.updateUser(id, updatedUser);

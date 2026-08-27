@@ -3,6 +3,7 @@ export type User = {
   name: string;
   email: string;
   password?: string;
+  profilePicture?: string;
 };
 
 export type ShoppingItem = {
@@ -10,6 +11,9 @@ export type ShoppingItem = {
   name: string;
   category: string;
   completed: boolean;
+  imageUrl?: string;
+  photographer?: string;
+  photographerUrl?: string;
 };
 
 export type ShoppingList = {
@@ -19,3 +23,4 @@ export type ShoppingList = {
   color: string;
   items: ShoppingItem[];
 };
+

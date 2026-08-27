@@ -28,6 +28,7 @@ import {
 } from "../features/lists/listsSlice";
 import type { ShoppingItem } from "../types";
 import emptyStateImg from "../assets/empty-state.jpg";
+import { findItemImage } from "../services/unsplash";
 
 const colors = ["purple", "green", "yellow", "pink", "blue"];
 
@@ -46,16 +47,29 @@ export default function Dashboard() {
   const [newItem, setNewItem] = useState("");
   const [category, setCategory] = useState("General");
   const [showChecked, setShowChecked] = useState(true);
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [mobileNav, setMobileNav] = useState(false);
   const [showCreateList, setShowCreateList] = useState(false);
   const [newListName, setNewListName] = useState("");
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState<ShoppingItem | null>(null);
 
   useEffect(() => {
     dispatch(fetchLists(user.id));
   }, [dispatch, user.id]);
 
-  const visibleItems =
-    selectedList?.items.filter((item) => showChecked || !item.completed) ?? [];
+  const visibleItems = useMemo(() => {
+    const items =
+      selectedList?.items.filter((item) => showChecked || !item.completed) ?? [];
+
+    return [...items].sort((a, b) => {
+      const comparison = a.name.localeCompare(b.name, undefined, {
+        sensitivity: "base",
+      });
+
+      return sortOrder === "asc" ? comparison : -comparison;
+    });
+  }, [selectedList, showChecked, sortOrder]);
 
   const completed =
     selectedList?.items.filter((item) => item.completed).length ?? 0;
@@ -79,11 +93,14 @@ export default function Dashboard() {
   const addItem = async () => {
     if (!selectedList || !newItem.trim()) return;
 
+    const itemImage = await findItemImage(newItem.trim());
+
     const item: ShoppingItem = {
       id: crypto.randomUUID(),
       name: newItem.trim(),
       category,
       completed: false,
+      ...itemImage,
     };
 
     dispatch(addItemLocal({ listId: selectedList.id, item }));
@@ -110,16 +127,25 @@ export default function Dashboard() {
     );
   };
 
-  const removeItem = async (itemId: string) => {
-    if (!selectedList) return;
+  const removeItem = async () => {
+    if (!selectedList || !itemToDelete) return;
+
     const updatedItems = selectedList.items.filter(
-      (item) => item.id !== itemId,
+      (item) => item.id !== itemToDelete.id,
     );
 
-    dispatch(removeItemLocal({ listId: selectedList.id, itemId }));
+    dispatch(
+      removeItemLocal({
+        listId: selectedList.id,
+        itemId: itemToDelete.id,
+      }),
+    );
+
     await dispatch(
       updateShoppingList({ ...selectedList, items: updatedItems }),
     );
+
+    setItemToDelete(null);
   };
 
   const createList = async () => {
@@ -148,9 +174,9 @@ export default function Dashboard() {
 
   const removeList = async () => {
     if (!selectedList) return;
-    if (window.confirm(`Delete "${selectedList.name}"?`)) {
-      dispatch(deleteShoppingList(selectedList.id));
-    }
+
+    await dispatch(deleteShoppingList(selectedList.id));
+    setShowDeleteConfirm(false);
   };
 
   return (
@@ -235,10 +261,12 @@ export default function Dashboard() {
               ))}
             </div>
 
-            <section className="items-panel">
+            <section
+              className={`items-panel ${selectedList?.color ?? ""}`}
+            >
               <div className="items-header">
                 <div>
-                  <h3>{selectedList?.name ?? "NO LIST SELECTED"}</h3>
+                  <h3>{selectedList?.name ?? "ITEMS"}</h3>
                   {selectedList && (
                     <div className="progress-row">
                       <span>
@@ -253,6 +281,15 @@ export default function Dashboard() {
                 </div>
 
                 <div className="header-actions">
+                  <button
+                    className="small-button"
+                    onClick={() =>
+                      setSortOrder((current) => (current === "asc" ? "desc" : "asc"))
+                    }
+                  >
+                    SORT: NAME {sortOrder === "asc" ? "A–Z" : "Z–A"}
+                  </button>
+
                   <button className="brutal-button blue" onClick={addItem}>
                     <Plus /> ADD ITEM
                   </button>
@@ -265,7 +302,7 @@ export default function Dashboard() {
                   </button>
                   <button
                     className="danger-icon"
-                    onClick={removeList}
+                    onClick={() => setShowDeleteConfirm(true)}
                     title="Delete list"
                   >
                     <Trash2 />
@@ -301,9 +338,9 @@ export default function Dashboard() {
                 )}
 
                 {!loading && visibleItems.length === 0 && (
-                  <div className="empty-state justify-center align-center flex flex-col">
-                    <img src={emptyStateImg} className=" w-[10rem] place-content-center" alt="Empty state" />
-                    <p>No list item available</p>
+                  <div className="empty-state justify-center align-center flex flex-col bg-white">
+                   
+                    <p>No list item available </p>
                   </div>
                 )}
 
@@ -324,9 +361,17 @@ export default function Dashboard() {
                     >
                       {item.category}
                     </span>
+                    {item.imageUrl && (
+                      <img
+                        className="item-image"
+                        src={item.imageUrl}
+                        alt={item.name}
+                      />
+                    )}
                     <button
                       className="delete-item"
-                      onClick={() => removeItem(item.id)}
+                      onClick={() => setItemToDelete(item)}
+                      title={`Delete ${item.name}`}
                     >
                       <Trash2 />
                     </button>
@@ -434,6 +479,56 @@ export default function Dashboard() {
 
               <button className="brutal-button blue" onClick={createList}>
                 <Plus /> CREATE LIST
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showDeleteConfirm && selectedList && (
+        <div className="modal-backdrop">
+          <div className="create-list-card delete-confirm-card">
+            <h3>DELETE LIST?</h3>
+            <p>
+              Are you sure you want to delete{" "}
+              <strong>{selectedList.name}</strong>?
+            </p>
+
+            <div className="modal-actions">
+              <button
+                className="brutal-button yellow"
+                onClick={() => setShowDeleteConfirm(false)}
+              >
+                CANCEL
+              </button>
+
+              <button className="brutal-button red" onClick={removeList}>
+                <Trash2 /> DELETE
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {itemToDelete && (
+        <div className="modal-backdrop">
+          <div className="create-list-card delete-confirm-card">
+            <h3>DELETE ITEM?</h3>
+            <p>
+              Are you sure you want to delete{" "}
+              <strong>{itemToDelete.name}</strong>?
+            </p>
+
+            <div className="modal-actions">
+              <button
+                className="brutal-button yellow"
+                onClick={() => setItemToDelete(null)}
+              >
+                CANCEL
+              </button>
+
+              <button className="brutal-button red" onClick={removeItem}>
+                <Trash2 /> DELETE
               </button>
             </div>
           </div>
