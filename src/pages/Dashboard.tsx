@@ -52,6 +52,7 @@ export default function Dashboard() {
   const [showCreateList, setShowCreateList] = useState(false);
   const [newListName, setNewListName] = useState("");
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState<ShoppingItem | null>(null);
 
   useEffect(() => {
     dispatch(fetchLists(user.id));
@@ -126,16 +127,25 @@ export default function Dashboard() {
     );
   };
 
-  const removeItem = async (itemId: string) => {
-    if (!selectedList) return;
+  const removeItem = async () => {
+    if (!selectedList || !itemToDelete) return;
+
     const updatedItems = selectedList.items.filter(
-      (item) => item.id !== itemId,
+      (item) => item.id !== itemToDelete.id,
     );
 
-    dispatch(removeItemLocal({ listId: selectedList.id, itemId }));
+    dispatch(
+      removeItemLocal({
+        listId: selectedList.id,
+        itemId: itemToDelete.id,
+      }),
+    );
+
     await dispatch(
       updateShoppingList({ ...selectedList, items: updatedItems }),
     );
+
+    setItemToDelete(null);
   };
 
   const createList = async () => {
@@ -360,7 +370,8 @@ export default function Dashboard() {
                     )}
                     <button
                       className="delete-item"
-                      onClick={() => removeItem(item.id)}
+                      onClick={() => setItemToDelete(item)}
+                      title={`Delete ${item.name}`}
                     >
                       <Trash2 />
                     </button>
@@ -492,6 +503,31 @@ export default function Dashboard() {
               </button>
 
               <button className="brutal-button red" onClick={removeList}>
+                <Trash2 /> DELETE
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {itemToDelete && (
+        <div className="modal-backdrop">
+          <div className="create-list-card delete-confirm-card">
+            <h3>DELETE ITEM?</h3>
+            <p>
+              Are you sure you want to delete{" "}
+              <strong>{itemToDelete.name}</strong>?
+            </p>
+
+            <div className="modal-actions">
+              <button
+                className="brutal-button yellow"
+                onClick={() => setItemToDelete(null)}
+              >
+                CANCEL
+              </button>
+
+              <button className="brutal-button red" onClick={removeItem}>
                 <Trash2 /> DELETE
               </button>
             </div>
