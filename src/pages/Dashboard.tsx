@@ -47,6 +47,7 @@ export default function Dashboard() {
   const [newItem, setNewItem] = useState("");
   const [category, setCategory] = useState("General");
   const [showChecked, setShowChecked] = useState(true);
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [mobileNav, setMobileNav] = useState(false);
   const [showCreateList, setShowCreateList] = useState(false);
   const [newListName, setNewListName] = useState("");
@@ -56,8 +57,18 @@ export default function Dashboard() {
     dispatch(fetchLists(user.id));
   }, [dispatch, user.id]);
 
-  const visibleItems =
-    selectedList?.items.filter((item) => showChecked || !item.completed) ?? [];
+  const visibleItems = useMemo(() => {
+    const items =
+      selectedList?.items.filter((item) => showChecked || !item.completed) ?? [];
+
+    return [...items].sort((a, b) => {
+      const comparison = a.name.localeCompare(b.name, undefined, {
+        sensitivity: "base",
+      });
+
+      return sortOrder === "asc" ? comparison : -comparison;
+    });
+  }, [selectedList, showChecked, sortOrder]);
 
   const completed =
     selectedList?.items.filter((item) => item.completed).length ?? 0;
@@ -240,10 +251,12 @@ export default function Dashboard() {
               ))}
             </div>
 
-            <section className="items-panel">
+            <section
+              className={`items-panel ${selectedList?.color ?? ""}`}
+            >
               <div className="items-header">
                 <div>
-                  <h3>{selectedList?.name ?? "NO LIST SELECTED"}</h3>
+                  <h3>{selectedList?.name ?? "ITEMS"}</h3>
                   {selectedList && (
                     <div className="progress-row">
                       <span>
@@ -258,6 +271,15 @@ export default function Dashboard() {
                 </div>
 
                 <div className="header-actions">
+                  <button
+                    className="small-button"
+                    onClick={() =>
+                      setSortOrder((current) => (current === "asc" ? "desc" : "asc"))
+                    }
+                  >
+                    SORT: NAME {sortOrder === "asc" ? "A–Z" : "Z–A"}
+                  </button>
+
                   <button className="brutal-button blue" onClick={addItem}>
                     <Plus /> ADD ITEM
                   </button>
@@ -306,9 +328,9 @@ export default function Dashboard() {
                 )}
 
                 {!loading && visibleItems.length === 0 && (
-                  <div className="empty-state justify-center align-center flex flex-col">
-                    <img src={emptyStateImg} className=" w-[10rem] place-content-center" alt="Empty state" />
-                    <p>No list item available</p>
+                  <div className="empty-state justify-center align-center flex flex-col bg-white">
+                   
+                    <p>No list item available </p>
                   </div>
                 )}
 

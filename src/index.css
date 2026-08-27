@@ -263,7 +263,7 @@
   }
 
   .item-row {
-    @apply grid min-h-[54px] grid-cols-[35px_1fr_auto_45px] items-center gap-2 border-b-2 border-[#111] p-1.5;
+    @apply grid min-h-[54px] grid-cols-[45px_1fr_auto_auto_45px] items-center gap-2 border-b-2 border-[#111] p-1.5;
   }
 
   .item-row:last-child {
@@ -562,4 +562,33 @@
 .delete-confirm-card p {
   margin: 1rem 0 1.5rem;
   font-weight: 600;
+}
+
+.items-panel.purple {
+  background: #a978ff;
+}
+
+.items-panel.green {
+  background: #35d56f;
+}
+
+.items-panel.yellow {
+  background: #ffd600;
+}
+
+.items-panel.pink {
+  background: #ff6f9f;
+}
+
+.items-panel.blue {
+  background: #65b8ff;
+}
+
+.small-button {
+  padding: 0.6rem 0.8rem;
+}
+
+.small-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px #111;
 }
