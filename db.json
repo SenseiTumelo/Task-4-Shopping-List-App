@@ -23,6 +23,12 @@
       "name": "Omphile Lucas",
       "email": "tmotjopi@gmail.com",
       "password": "123456789"
+    },
+    {
+      "id": "8S7N9fsq4Lo",
+      "name": "sdfsdf",
+      "email": "ewfe@fwdsfdsf.com",
+      "password": "123456"
     }
   ],
   "lists": [
@@ -439,6 +445,21 @@
           "photographerUrl": "https://unsplash.com/@waiheng_tobi"
         }
       ]
+    },
+    {
+      "id": "VwVHtngWGU0",
+      "userId": "MipCCHbRxF4",
+      "name": "r",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "Pc5ohAbR0ZQ",
+      "userId": "739dbbbf-090b-400e-8283-58199b660b33",
+      "name": "sdasdsad",
+      "color": "purple",
+      "items": []
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
