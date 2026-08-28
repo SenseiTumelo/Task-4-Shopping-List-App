@@ -3,14 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
-    "dev": "concurrently \"vite\" \"json-server --watch db.json --port 3001\"",
-    "dev:client": "vite",
-    "dev:server": "json-server --watch db.json --port 3001",
-    "build": "tsc -b && vite build",
-    "lint": "oxlint",
-    "preview": "vite preview"
-  },
+"scripts": {
+  "dev": "concurrently \"vite\" \"json-server --watch db.json --port 3001 --host 0.0.0.0\"",
+  "dev:client": "vite",
+  "dev:server": "json-server --watch db.json --port 3001 --host 0.0.0.0",
+  "start": "json-server --watch db.json --port $PORT --host 0.0.0.0",
+  "build": "tsc -b && vite build",
+  "lint": "oxlint",
+  "preview": "vite preview"
+},
   "dependencies": {
     "@reduxjs/toolkit": "^2.12.0",
     "@tailwindcss/vite": "^4.3.3",

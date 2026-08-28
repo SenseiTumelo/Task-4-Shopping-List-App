@@ -1,6 +1,6 @@
 import type { ShoppingList, User } from "./types";
 
-const API_URL = "http://localhost:3001";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 async function request<T>(
   path: string,
