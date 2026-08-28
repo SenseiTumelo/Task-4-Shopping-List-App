@@ -16,6 +16,10 @@ import {
   AlertCircle,
   ChevronUp,
   Share2,
+  MessageCircle,
+  FileText,
+  Link2,
+  Mail,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -31,7 +35,7 @@ import {
   toggleItemLocal,
   updateShoppingList,
 } from "../features/lists/listsSlice";
-import type { ShoppingItem } from "../types";
+import type { ShoppingItem, ShoppingList } from "../types";
 
 import { findItemImage } from "../services/unsplash";
 
@@ -61,6 +65,9 @@ export default function Dashboard() {
   const [newListName, setNewListName] = useState("");
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<ShoppingItem | null>(null);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareList, setShareList] = useState<ShoppingList | null>(null);
+  const [copySuccess, setCopySuccess] = useState(false);
 
   useEffect(() => {
     dispatch(fetchLists(user.id));
@@ -214,6 +221,49 @@ export default function Dashboard() {
     return labels[sortBy];
   };
 
+  const openShareModal = (list: ShoppingList) => {
+    setShareList(list);
+    setShowShareModal(true);
+  };
+
+  const generateListText = (list: ShoppingList) => {
+    const itemsList = list.items.map((item) => `• ${item.name} (${item.category})`).join("\n");
+    return `SHOPLIST - ${list.name}\n\n${itemsList}\n\nShared from SHOPLIST App`;
+  };
+
+  const copyToClipboard = () => {
+    const shareUrl = `${window.location.origin}?list=${shareList?.id}`;
+    navigator.clipboard.writeText(shareUrl);
+    setCopySuccess(true);
+    setTimeout(() => setCopySuccess(false), 2000);
+  };
+
+  const shareViaWhatsApp = () => {
+    if (!shareList) return;
+    const text = generateListText(shareList);
+    const encodedText = encodeURIComponent(text);
+    window.open(`https://wa.me/?text=${encodedText}`, "_blank");
+  };
+
+  const shareViaEmail = () => {
+    if (!shareList) return;
+    const text = generateListText(shareList);
+    const subject = `Check out my shopping list: ${shareList.name}`;
+    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+  };
+
+  const generatePDF = () => {
+    if (!shareList) return;
+    const text = generateListText(shareList);
+    const element = document.createElement("a");
+    const file = new Blob([text], { type: "text/plain" });
+    element.href = URL.createObjectURL(file);
+    element.download = `${shareList.name}.txt`;
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+
   return (
     <div className="app-shell">
       <aside className={`sidebar ${mobileNav ? "open" : ""}`}>
@@ -293,17 +343,25 @@ export default function Dashboard() {
                     </div>
                   ) : (
                     lists.map((list) => (
-                      <button
-                        key={list.id}
-                        className={`list-card ${list.color}`}
-                        onClick={() => handleSelectList(list.id)}
-                      >
-                        <div className="list-card-icon">
-                          <ShoppingCart />
-                        </div>
-                        <strong>{list.name}</strong>
-                        <span>{list.items.length} ITEMS</span>
-                      </button>
+                      <div key={list.id} className="list-card-wrapper">
+                        <button
+                          className={`list-card ${list.color}`}
+                          onClick={() => handleSelectList(list.id)}
+                        >
+                          <div className="list-card-icon">
+                            <ShoppingCart />
+                          </div>
+                          <strong>{list.name}</strong>
+                          <span>{list.items.length} ITEMS</span>
+                        </button>
+                        <button
+                          className="list-card-share"
+                          onClick={() => openShareModal(list)}
+                          title="Share this list"
+                        >
+                          <Share2 size={18} />
+                        </button>
+                      </div>
                     ))
                   )}
                 </div>
@@ -504,58 +562,49 @@ export default function Dashboard() {
             )}
           </div>
 
-          {!selectedList && (
-            <aside className="right-column">
-              <div className="summary-card green-panel">
-                <h3>SUMMARY</h3>
-                <Stat
-                  icon={<ClipboardList />}
-                  label="TOTAL LISTS"
-                  value={stats.totalLists}
-                />
-                <Stat
-                  icon={<ShoppingCart />}
-                  label="TOTAL ITEMS"
-                  value={stats.totalItems}
-                />
-                <Stat
-                  icon={<Check />}
-                  label="COMPLETED"
-                  value={stats.completed}
-                />
-                <Stat
-                  icon={<AlertCircle />}
-                  label="PENDING"
-                  value={stats.totalItems - stats.completed}
-                />
-              </div>
+          <aside className="right-column">
+            <div className="summary-card green-panel">
+              <h3>SUMMARY</h3>
+              <Stat
+                icon={<ClipboardList />}
+                label="TOTAL LISTS"
+                value={stats.totalLists}
+              />
+              <Stat
+                icon={<ShoppingCart />}
+                label="TOTAL ITEMS"
+                value={stats.totalItems}
+              />
+              <Stat
+                icon={<Check />}
+                label="COMPLETED"
+                value={stats.completed}
+              />
+              <Stat
+                icon={<AlertCircle />}
+                label="PENDING"
+                value={stats.totalItems - stats.completed}
+              />
+            </div>
 
-              <div className="quick-card purple-panel">
-                <h3>QUICK ACTIONS</h3>
-                <button onClick={() => setShowCreateList(true)}>
-                  <Plus /> CREATE NEW LIST
-                </button>
-                <button onClick={() => setNewItem("")}>
-                  <ClipboardList /> ADD ITEM
-                </button>
-                <button
-                  onClick={() =>
-                    navigator.clipboard?.writeText(window.location.href)
-                  }
-                >
-                  <Share2 /> SHARE A LIST
-                </button>
-              </div>
+            <div className="quick-card purple-panel">
+              <h3>QUICK ACTIONS</h3>
+              <button onClick={() => setShowCreateList(true)}>
+                <Plus /> CREATE NEW LIST
+              </button>
+              <button onClick={() => openShareModal(selectedList || lists[0])}>
+                <Share2 /> SHARE A LIST
+              </button>
+            </div>
 
-              <div className="reminder-card yellow-panel">
-                <h3>DON'T FORGET!</h3>
-                <p>
-                  <strong>{stats.totalItems - stats.completed}</strong> ITEMS ARE
-                  STILL WAITING FOR YOU.
-                </p>
-              </div>
-            </aside>
-          )}
+            <div className="reminder-card yellow-panel">
+              <h3>DON'T FORGET!</h3>
+              <p>
+                <strong>{stats.totalItems - stats.completed}</strong> ITEMS ARE
+                STILL WAITING FOR YOU.
+              </p>
+            </div>
+          </aside>
         </section>
       </main>
 
@@ -593,6 +642,72 @@ export default function Dashboard() {
 
               <button className="brutal-button blue" onClick={createList}>
                 <Plus /> CREATE LIST
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showShareModal && shareList && (
+        <div className="modal-backdrop">
+          <div className="create-list-card">
+            <button
+              className="modal-close"
+              onClick={() => setShowShareModal(false)}
+              aria-label="Close"
+            >
+              <X />
+            </button>
+
+            <h3>SHARE "{shareList.name.toUpperCase()}"</h3>
+            <p style={{ marginBottom: "1.5rem", color: "#666", textAlign: "center" }}>
+              Choose how you want to share this shopping list
+            </p>
+
+            <div className="share-options">
+              <button
+                className="share-option-btn"
+                onClick={shareViaWhatsApp}
+                title="Share via WhatsApp"
+              >
+                <MessageCircle size={28} />
+                <span>WhatsApp</span>
+              </button>
+
+              <button
+                className="share-option-btn"
+                onClick={shareViaEmail}
+                title="Share via Email"
+              >
+                <Mail size={28} />
+                <span>Email</span>
+              </button>
+
+              <button
+                className="share-option-btn"
+                onClick={generatePDF}
+                title="Download as file"
+              >
+                <FileText size={28} />
+                <span>Download</span>
+              </button>
+
+              <button
+                className="share-option-btn"
+                onClick={copyToClipboard}
+                title="Copy link"
+              >
+                <Link2 size={28} />
+                <span>{copySuccess ? "Copied!" : "Copy Link"}</span>
+              </button>
+            </div>
+
+            <div className="modal-actions" style={{ marginTop: "1.5rem" }}>
+              <button
+                className="brutal-button yellow"
+                onClick={() => setShowShareModal(false)}
+              >
+                CLOSE
               </button>
             </div>
           </div>
