@@ -20,6 +20,7 @@ import {
   FileText,
   Link2,
   Mail,
+  InboxIcon,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -332,14 +333,18 @@ export default function Dashboard() {
 
                 <div className="list-cards">
                   {lists.length === 0 ? (
-                    <div className="empty-state">
-                      <p>No shopping lists yet.</p>
-                      <button
-                        className="brutal-button blue"
-                        onClick={() => setShowCreateList(true)}
-                      >
-                        <Plus /> CREATE YOUR FIRST LIST
-                      </button>
+                    <div className="empty-state-container mx-[34rem] mt-[5rem]">
+                      <div className="empty-state-content">
+                        <InboxIcon size={64} strokeWidth={1.5} />
+                        <h3>NO SHOPPING LISTS YET</h3>
+                        <p>Create your first shopping list to get started</p>
+                        <button
+                          className="brutal-button blue"
+                          onClick={() => setShowCreateList(true)}
+                        >
+                          <Plus size={20} /> CREATE YOUR FIRST LIST
+                        </button>
+                      </div>
                     </div>
                   ) : (
                     lists.map((list) => (
@@ -502,8 +507,10 @@ export default function Dashboard() {
                   )}
 
                   {!loading && visibleItems.length === 0 && (
-                    <div className="empty-state justify-center align-center flex flex-col bg-white">
+                    <div className="empty-items-state">
+                      <InboxIcon size={56} strokeWidth={1.5} />
                       <p>No items in this list</p>
+                      <span>Start adding items to your shopping list</span>
                     </div>
                   )}
 
