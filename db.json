@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "1",
-      "name": "Tumelo",
+      "name": "Tumelo M",
       "email": "tumelo@example.com",
       "password": "123456"
     },
@@ -29,6 +29,12 @@
       "name": "sdfsdf",
       "email": "ewfe@fwdsfdsf.com",
       "password": "123456"
+    },
+    {
+      "id": "Xnw86-Q5MtY",
+      "name": "Tumelo",
+      "email": "t@T.COM",
+      "password": "5366f92e38399ab72b6f4e761303bb950acb51554ae3674b8038a04b1da6bcef"
     }
   ],
   "lists": [
@@ -141,10 +147,13 @@
       "color": "green",
       "items": [
         {
-          "id": "c781ffd9-385f-4a16-90f1-2f04e0be864e",
-          "name": "chicken",
-          "category": "Meat",
-          "completed": false
+          "id": "df10435c-dac0-4fac-8972-3f12b157a83d",
+          "name": "cake",
+          "category": "Bakery",
+          "completed": false,
+          "imageUrl": "https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MTY2fDB8MXxzZWFyY2h8MXx8Y2FrZXxlbnwwfHx8fDE3ODgxMDEwMzJ8MA&ixlib=rb-4.1.0&q=80&w=400&w=600&h=400&fit=crop",
+          "photographer": "American Heritage Chocolate",
+          "photographerUrl": "https://unsplash.com/@americanheritagechocolate"
         }
       ]
     },
@@ -466,6 +475,21 @@
       "name": "list l",
       "color": "purple",
       "items": []
+    },
+    {
+      "id": "8m8By-ddeBk",
+      "userId": "1",
+      "name": "tumelo",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "vL0gHQP9mIs",
+      "userId": "1",
+      "name": "list\\",
+      "color": "purple",
+      "items": []
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

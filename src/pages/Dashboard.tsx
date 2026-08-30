@@ -333,8 +333,8 @@ export default function Dashboard() {
 
                 <div className="list-cards">
                   {lists.length === 0 ? (
-                    <div className="empty-state-container mx-[34rem] mt-[5rem]">
-                      <div className="empty-state-content">
+                    <div className="empty-state-container  w-full h-full flex items-center justify-center min-h-[400px] bg-white border-4 border-[#111] shadow-[6px_6px_#111]">
+                      <div className="empty-state-content flex flex-col items-center justify-center gap-4 text-center">
                         <InboxIcon size={64} strokeWidth={1.5} />
                         <h3>NO SHOPPING LISTS YET</h3>
                         <p>Create your first shopping list to get started</p>
@@ -459,9 +459,7 @@ export default function Dashboard() {
                       )}
                     </div>
 
-                    <button className="brutal-button blue" onClick={addItem}>
-                      <Plus /> ADD ITEM
-                    </button>
+
                     <button
                       className="brutal-button yellow"
                       onClick={() => setShowChecked(!showChecked)}
@@ -479,16 +477,21 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                <div className="add-item">
+                <div
+                  className="add-item"
+                  style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}
+                >
                   <input
                     placeholder="Add your item here..."
                     value={newItem}
                     onChange={(e) => setNewItem(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && addItem()}
+                    style={{ flex: 1, minWidth: 0 }}
                   />
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
+                    style={{ minWidth: "180px" }}
                   >
                     <option>General</option>
                     <option>Dairy</option>
@@ -499,6 +502,13 @@ export default function Dashboard() {
                     <option>Household</option>
                     <option>Personal Care</option>
                   </select>
+                  <button
+                    className="brutal-button blue"
+                    onClick={addItem}
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    <Plus /> ADD ITEM
+                  </button>
                 </div>
 
                 <div className="items-list">
