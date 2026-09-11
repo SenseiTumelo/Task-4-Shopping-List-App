@@ -32,9 +32,6 @@ export default function Login() {
           <span>BUY LESS. PLAN BETTER.</span>
         </div>
 
-        <h2>WELCOME BACK!</h2>
-        <p className="muted">Log in to manage your shopping lists.</p>
-
         <form onSubmit={submit} className="auth-form">
           <label>Email</label>
           <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" required />
