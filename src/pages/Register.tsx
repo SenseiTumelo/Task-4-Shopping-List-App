@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AlertCircle, CheckCircle } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../app/hook";
 import { register } from "../features/auth/authSlice";
+import loginBG from "../assets/loginBG.png";
 import { validatePassword, encryptPassword, type PasswordStrength } from "../utils/passwordValidator";
 
 export default function Register() {
@@ -82,6 +83,7 @@ export default function Register() {
   return (
     <main className="grid min-h-screen place-items-center p-[25px] bg-[#ffd600]">
       <section className="w-[min(480px,100%)] border-4 border-[#111] bg-white p-[30px] shadow-[10px_10px_#111] max-[520px]:p-[22px]">
+        <img className="login-illustration" src={loginBG} alt="Shopping cart filled with groceries" />
         <div className="mb-[25px] grid justify-items-center text-center">
           <h1 className="my-1 font-['Darker Grotesque'] text-[44px] tracking-[-2px] max-[520px]:text-4xl">
             SHOPLIST

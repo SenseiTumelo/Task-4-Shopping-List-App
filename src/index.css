@@ -829,11 +829,11 @@ h1, h2, h3 { font-weight: 800; line-height: 1.2; }
 .login-card .brand-block > svg { display: none; }
 .login-card .brand-block h1 { font-size: 30px; letter-spacing: -1px; }
 .login-card .brand-block span { font-size: 11px; letter-spacing: 1px; }
-.compact-search { display: flex; align-items: center; gap: 8px; width: 100%; max-width: 360px; margin: 14px 0; padding: 6px 10px; min-height: 38px; border: 2px solid #111; background: white; border-radius: 6px; font-size: 14px; }
+.compact-search { display: flex; align-items: center; gap: 8px; width: 100%; max-width: 360px; margin: 14px auto; padding: 6px 10px; min-height: 38px; border: 2px solid #111; background: white; border-radius: 0; font-size: 14px; }
 .compact-search:focus-within { outline: 2px solid #2563eb; outline-offset: 2px; }
 .compact-search svg { width: 16px; height: 16px; }
 .account-layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 24px; max-width: 1000px; margin: 28px auto; align-items: start; }
-.account-summary, .account-form { background: white; border: 1px solid #d9dde3; border-radius: 12px; padding: 28px; box-shadow: 0 3px 12px #11111108; min-width: 0; }
+.account-summary, .account-form { background: white; border: 4px solid #111; border-radius: 0; padding: 28px; box-shadow: 6px 6px #111; min-width: 0; }
 .account-summary { text-align: center; }
 .account-avatar { width: 96px; height: 96px; margin: 0 auto 16px; display: grid; place-items: center; border-radius: 50%; background: #fff0a8; color: #111; font-size: 36px; font-weight: 800; overflow: hidden; }
 .account-avatar img { width: 100%; height: 100%; object-fit: cover; }

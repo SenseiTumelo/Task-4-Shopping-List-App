@@ -528,23 +528,6 @@
       "name": "list 1",
       "color": "purple",
       "items": []
-    },
-    {
-      "id": "f_N3jzf6mxA",
-      "userId": "aa1b0482-bfa8-4a1a-a162-68fa85128301",
-      "name": "list 1",
-      "color": "purple",
-      "items": [
-        {
-          "id": "ba23d0e9-7e29-4576-bfc2-9acb6eee03a9",
-          "name": "banana",
-          "category": "General",
-          "completed": false,
-          "imageUrl": "https://images.unsplash.com/photo-1587132137056-bfbf0166836e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MTY2fDB8MXxzZWFyY2h8MXx8YmFuYW5hfGVufDB8fHx8MTc4OTExOTk3NXww&ixlib=rb-4.1.0&q=80&w=400&w=600&h=400&fit=crop",
-          "photographer": "Mockup Graphics",
-          "photographerUrl": "https://unsplash.com/@mockupgraphics"
-        }
-      ]
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
