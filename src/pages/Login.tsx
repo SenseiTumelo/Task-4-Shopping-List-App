@@ -3,13 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { ShoppingBasket } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../app/hook";
 import { login } from "../features/auth/authSlice";
+import loginBG from "../assets/loginBG.png";
 
 export default function Login() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { user, loading, error } = useAppSelector((state) => state.auth);
-  const [email, setEmail] = useState("tumelo@example.com");
-  const [password, setPassword] = useState("123456");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     if (user) navigate("/");
@@ -22,8 +23,9 @@ export default function Login() {
   };
 
   return (
-    <main className="auth-page">
-      <section className="auth-card">
+    <main className="auth-page login-page">
+      <section className="auth-card login-card">
+        <img className="login-illustration" src={loginBG} alt="Shopping cart filled with groceries" />
         <div className="brand-block">
           <ShoppingBasket size={42} strokeWidth={3} />
           <h1>SHOPLIST</h1>

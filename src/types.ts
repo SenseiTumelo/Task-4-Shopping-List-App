@@ -11,6 +11,7 @@ export type ShoppingItem = {
   name: string;
   category: string;
   completed: boolean;
+  note?: string;
   imageUrl?: string;
   photographer?: string;
   photographerUrl?: string;

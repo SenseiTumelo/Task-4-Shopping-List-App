@@ -35,6 +35,12 @@
       "name": "Tumelo",
       "email": "t@T.COM",
       "password": "5366f92e38399ab72b6f4e761303bb950acb51554ae3674b8038a04b1da6bcef"
+    },
+    {
+      "id": "WnPw4YUeCqM",
+      "name": "t",
+      "email": "t@gmail.com1",
+      "password": "2eb47ab8e9dbebc0c6f57e72d91434f799e9f588a9469082a5f297daa6e25871"
     }
   ],
   "lists": [
@@ -489,6 +495,56 @@
       "name": "list\\",
       "color": "purple",
       "items": []
+    },
+    {
+      "id": "vzdqm3NsoHA",
+      "userId": "MipCCHbRxF4",
+      "name": "Groceries",
+      "color": "purple",
+      "items": [
+        {
+          "id": "8a6a91ce-0653-4855-b037-627536567c2b",
+          "name": "Bread",
+          "category": "Bakery",
+          "completed": false,
+          "imageUrl": "https://images.unsplash.com/photo-1598373182133-52452f7691ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MTY2fDB8MXxzZWFyY2h8MXx8QnJlYWR8ZW58MHx8fHwxNzg4NzYyODMxfDA&ixlib=rb-4.1.0&q=80&w=400&w=600&h=400&fit=crop",
+          "photographer": "Charles Chen",
+          "photographerUrl": "https://unsplash.com/@color0911"
+        },
+        {
+          "id": "5b04cda1-c3da-4d88-87a7-8b45a1c38787",
+          "name": "banana",
+          "category": "Fruits",
+          "completed": false,
+          "imageUrl": "https://images.unsplash.com/photo-1587132137056-bfbf0166836e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MTY2fDB8MXxzZWFyY2h8MXx8YmFuYW5hfGVufDB8fHx8MTc4ODc2Mjg0M3ww&ixlib=rb-4.1.0&q=80&w=400&w=600&h=400&fit=crop",
+          "photographer": "Mockup Graphics",
+          "photographerUrl": "https://unsplash.com/@mockupgraphics"
+        }
+      ]
+    },
+    {
+      "id": "RSUfaE51UHo",
+      "userId": "1",
+      "name": "list 1",
+      "color": "purple",
+      "items": []
+    },
+    {
+      "id": "f_N3jzf6mxA",
+      "userId": "aa1b0482-bfa8-4a1a-a162-68fa85128301",
+      "name": "list 1",
+      "color": "purple",
+      "items": [
+        {
+          "id": "ba23d0e9-7e29-4576-bfc2-9acb6eee03a9",
+          "name": "banana",
+          "category": "General",
+          "completed": false,
+          "imageUrl": "https://images.unsplash.com/photo-1587132137056-bfbf0166836e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDQ1MTY2fDB8MXxzZWFyY2h8MXx8YmFuYW5hfGVufDB8fHx8MTc4OTExOTk3NXww&ixlib=rb-4.1.0&q=80&w=400&w=600&h=400&fit=crop",
+          "photographer": "Mockup Graphics",
+          "photographerUrl": "https://unsplash.com/@mockupgraphics"
+        }
+      ]
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

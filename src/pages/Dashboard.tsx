@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import {
   Check,
@@ -21,13 +21,13 @@ import {
   Link2,
   Mail,
   InboxIcon,
+  Search,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../app/hook";
 import { logout } from "../features/auth/authSlice";
 import {
-  addItemLocal,
   createShoppingList,
   deleteShoppingList,
   fetchLists,
@@ -56,7 +56,26 @@ export default function Dashboard() {
   const selectedList =
     lists.find((list) => list.id === selectedListId) ?? null;
 
+  const [listSearch, setListSearch] = useState("");
+  const [itemSearch, setItemSearch] = useState("");
+  const listQuery = listSearch.trim().toLowerCase();
+  const itemQuery = itemSearch.trim().toLowerCase();
+  const visibleLists = lists.filter((list) =>
+    list.name.toLowerCase().includes(listQuery),
+  );
+
   const [newItem, setNewItem] = useState("");
+  const noteDialog = useRef<HTMLDialogElement>(null);
+  const [itemNote, setItemNote] = useState("");
+  const [savingItem, setSavingItem] = useState(false);
+  const [itemError, setItemError] = useState("");
+
+  const openItemNote = () => {
+    if (!selectedList || !newItem.trim()) return;
+    setItemNote("");
+    setItemError("");
+    noteDialog.current?.showModal();
+  };
   const [category, setCategory] = useState("General");
   const [showChecked, setShowChecked] = useState(true);
   const [sortBy, setSortBy] = useState<SortBy>("name-asc");
@@ -76,7 +95,12 @@ export default function Dashboard() {
 
   const visibleItems = useMemo(() => {
     const items =
-      selectedList?.items.filter((item) => showChecked || !item.completed) ?? [];
+      selectedList?.items.filter(
+        (item) =>
+          (showChecked || !item.completed) &&
+          (item.name.toLowerCase().includes(itemQuery) ||
+            item.category.toLowerCase().includes(itemQuery)),
+      ) ?? [];
 
     return [...items].sort((a, b) => {
       let comparison = 0;
@@ -93,7 +117,7 @@ export default function Dashboard() {
 
       return sortBy.includes("desc") ? -comparison : comparison;
     });
-  }, [selectedList, showChecked, sortBy]);
+  }, [selectedList, showChecked, sortBy, itemQuery]);
 
   const completed =
     selectedList?.items.filter((item) => item.completed).length ?? 0;
@@ -115,30 +139,34 @@ export default function Dashboard() {
   );
 
   const addItem = async () => {
-    if (!selectedList || !newItem.trim()) return;
-
-    const itemImage = await findItemImage(newItem.trim());
-
-    const item: ShoppingItem = {
-      id: crypto.randomUUID(),
-      name: newItem.trim(),
-      category,
-      completed: false,
-      ...itemImage,
-    };
-
-    dispatch(addItemLocal({ listId: selectedList.id, item }));
-
-    await dispatch(
-      updateShoppingList({
-        ...selectedList,
-        items: [...selectedList.items, item],
-      }),
-    );
-
-    setNewItem("");
+    if (!selectedList || !newItem.trim() || savingItem) return;
+    setSavingItem(true);
+    setItemError("");
+    try {
+      const itemImage = await findItemImage(newItem.trim());
+      const item: ShoppingItem = {
+        id: crypto.randomUUID(),
+        name: newItem.trim(),
+        category,
+        completed: false,
+        note: itemNote.trim() || undefined,
+        ...itemImage,
+      };
+      await dispatch(
+        updateShoppingList({
+          ...selectedList,
+          items: [...selectedList.items, item],
+        }),
+      ).unwrap();
+      setNewItem("");
+      setItemNote("");
+      noteDialog.current?.close();
+    } catch {
+      setItemError("Could not add the item. Please try again.");
+    } finally {
+      setSavingItem(false);
+    }
   };
-
   const toggleItem = async (itemId: string) => {
     if (!selectedList) return;
     const updatedItems = selectedList.items.map((item) =>
@@ -205,6 +233,7 @@ export default function Dashboard() {
   };
 
   const handleSelectList = (listId: string) => {
+    setItemSearch("");
     dispatch(selectList(listId));
   };
 
@@ -267,6 +296,20 @@ export default function Dashboard() {
 
   return (
     <div className="app-shell">
+      <dialog ref={noteDialog} className="item-note-dialog" aria-labelledby="item-note-title" onCancel={(event) => { if (savingItem) event.preventDefault(); }}>
+        <form onSubmit={(event) => { event.preventDefault(); void addItem(); }}>
+          <h2 id="item-note-title">Add a note</h2>
+          <p>Adding <strong>{newItem}</strong> to your list.</p>
+          <label htmlFor="item-note">Note (optional)</label>
+          <textarea id="item-note" autoFocus value={itemNote} maxLength={500} onChange={(event) => setItemNote(event.target.value)} placeholder="For example: 2 litres, lactose-free" disabled={savingItem} />
+          <small>{itemNote.length}/500 characters</small>
+          {itemError && <p role="alert" className="error-box">{itemError}</p>}
+          <div className="modal-actions">
+            <button type="button" className="small-button" disabled={savingItem} onClick={() => noteDialog.current?.close()}>Cancel</button>
+            <button type="submit" className="brutal-button blue" disabled={savingItem}>{savingItem ? "Adding..." : "Add item"}</button>
+          </div>
+        </form>
+      </dialog>
       <aside className={`sidebar ${mobileNav ? "open" : ""}`}>
         <div className="sidebar-brand">
           <ShoppingCart size={36} strokeWidth={3} />
@@ -328,12 +371,25 @@ export default function Dashboard() {
               <>
                 <div className="section-heading">
                   <h3>MY SHOPPING LISTS</h3>
-                  <button className="small-button">VIEW ALL <ArrowLeft size={16} style={{ transform: 'scaleX(-1)' }} /></button>
                 </div>
 
+                <SearchField
+                  label="Search shopping lists"
+                  placeholder="Search lists by name..."
+                  value={listSearch}
+                  onChange={setListSearch}
+                />
+                {listQuery && !loading && (
+                  <p role="status" className="mb-4 font-bold">
+                    {visibleLists.length} of {lists.length} lists found
+                  </p>
+                )}
+
                 <div className="list-cards">
-                  {lists.length === 0 ? (
-                    <div className="empty-state-container  w-full h-full flex items-center justify-center min-h-[400px] bg-white border-4 border-[#111] shadow-[6px_6px_#111]">
+                  {loading ? (
+                    <p className="empty-state">LOADING YOUR LISTS...</p>
+                  ) : lists.length === 0 ? (
+                    <div className="empty-state-container col-span-full max-w-[560px] justify-self-center">
                       <div className="empty-state-content flex flex-col items-center justify-center gap-4 text-center">
                         <InboxIcon size={64} strokeWidth={1.5} />
                         <h3>NO SHOPPING LISTS YET</h3>
@@ -342,12 +398,21 @@ export default function Dashboard() {
                           className="brutal-button blue"
                           onClick={() => setShowCreateList(true)}
                         >
-                          <Plus size={20} /> CREATE YOUR FIRST LIST
+                          <Plus size={20} aria-hidden="true" /> ADD NEW LIST
                         </button>
                       </div>
                     </div>
+                  ) : visibleLists.length === 0 ? (
+                    <div className="empty-items-state col-span-full w-full max-w-[560px] justify-self-center">
+                      <Search size={56} aria-hidden="true" />
+                      <p>No matching shopping lists</p>
+                      <span>Try another list name or clear your search.</span>
+                      <button className="small-button" onClick={() => setListSearch("")}>
+                        CLEAR SEARCH
+                      </button>
+                    </div>
                   ) : (
-                    lists.map((list) => (
+                    visibleLists.map((list) => (
                       <div key={list.id} className="list-card-wrapper">
                         <button
                           className={`list-card ${list.color}`}
@@ -485,7 +550,7 @@ export default function Dashboard() {
                     placeholder="Add your item here..."
                     value={newItem}
                     onChange={(e) => setNewItem(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && addItem()}
+                    onKeyDown={(e) => e.key === "Enter" && openItemNote()}
                     style={{ flex: 1, minWidth: 0 }}
                   />
                   <select
@@ -504,12 +569,25 @@ export default function Dashboard() {
                   </select>
                   <button
                     className="brutal-button blue"
-                    onClick={addItem}
+                    onClick={openItemNote}
                     style={{ whiteSpace: "nowrap" }}
                   >
                     <Plus /> ADD ITEM
                   </button>
                 </div>
+
+                <SearchField
+                  label="Search items in this list"
+                  placeholder="Search items by name or category..."
+                  value={itemSearch}
+                  onChange={setItemSearch}
+                />
+                {itemQuery && !loading && (
+                  <p role="status" className="mb-4 font-bold">
+                    {visibleItems.length} of {total} items found
+                    {!showChecked && " (checked items hidden)"}
+                  </p>
+                )}
 
                 <div className="items-list">
                   {loading && (
@@ -519,8 +597,28 @@ export default function Dashboard() {
                   {!loading && visibleItems.length === 0 && (
                     <div className="empty-items-state">
                       <InboxIcon size={56} strokeWidth={1.5} />
-                      <p>No items in this list</p>
-                      <span>Start adding items to your shopping list</span>
+                      <p>
+                        {itemQuery
+                          ? "No matching items"
+                          : total > 0
+                            ? "All items are checked"
+                            : "No items in this list"}
+                      </p>
+                      <span>
+                        {itemQuery
+                          ? "Try another name or category, or clear your search."
+                          : total > 0
+                            ? "Show completed items to see them."
+                            : "Start adding items to your shopping list"}
+                      </span>
+                      {itemQuery && (
+                        <button className="small-button" onClick={() => setItemSearch("")}>
+                          CLEAR SEARCH
+                        </button>
+                      )}
+                      {itemQuery && !showChecked && (
+                        <span>Checked items are hidden. Use SHOW COMPLETED ITEMS to include them.</span>
+                      )}
                     </div>
                   )}
 
@@ -535,7 +633,10 @@ export default function Dashboard() {
                       >
                         {item.completed && <Check />}
                       </button>
-                      <span className="item-name">{item.name}</span>
+                                            <div className="item-description">
+                        <span className="item-name">{item.name}</span>
+                        {item.note && <p className="item-note">{item.note}</p>}
+                      </div>
                       <span
                         className={`category-tag ${item.category.toLowerCase().replaceAll(" ", "-")}`}
                       >
@@ -800,6 +901,44 @@ function Stat({
         <small>{label}</small>
         <strong>{value}</strong>
       </div>
+    </div>
+  );
+}
+function SearchField({
+  label,
+  placeholder,
+  value,
+  onChange,
+}: {
+  label: string;
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <div role="search" aria-label={label} className="compact-search">
+      <Search size={20} aria-hidden="true" className="shrink-0" />
+      <input
+        type="search"
+        aria-label={label}
+        placeholder={placeholder}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        onKeyDown={(event) => {
+          if (event.key === "Escape") onChange("");
+        }}
+        className="min-w-0 flex-1 bg-transparent outline-none"
+      />
+      {value && (
+        <button
+          type="button"
+          aria-label={`Clear ${label.toLowerCase()}`}
+          onClick={() => onChange("")}
+          className="shrink-0 p-1"
+        >
+          <X size={20} aria-hidden="true" />
+        </button>
+      )}
     </div>
   );
 }
