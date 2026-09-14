@@ -3,7 +3,6 @@ import {
   ArrowLeft,
   Camera,
   Home,
-  LogOut,
   Save,
   Settings,
   ShoppingCart,
@@ -12,7 +11,9 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hook";
-import { logout, updateProfile } from "../features/auth/authSlice";
+import { updateProfile } from "../features/auth/authSlice";
+
+import LogoutButton from "../components/LogoutButton";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -117,16 +118,7 @@ export default function Profile() {
           </div>
         </div>
 
-        <button
-          className="logout-link"
-          onClick={() => {
-            dispatch(logout());
-            navigate("/login");
-          }}
-        >
-          <LogOut />
-          LOG OUT
-        </button>
+        <LogoutButton />
       </aside>
 
       <main className="main-content">

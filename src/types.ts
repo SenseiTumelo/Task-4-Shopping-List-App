@@ -12,6 +12,7 @@ export type ShoppingItem = {
   category: string;
   completed: boolean;
   note?: string;
+  quantity?: number;
   imageUrl?: string;
   photographer?: string;
   photographerUrl?: string;

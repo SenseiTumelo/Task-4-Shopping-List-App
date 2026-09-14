@@ -4,7 +4,6 @@ import {
   Check,
   ClipboardList,
   Home,
-  LogOut,
   Menu,
   Plus,
   Settings,
@@ -26,7 +25,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../app/hook";
-import { logout } from "../features/auth/authSlice";
+import LogoutButton from "../components/LogoutButton";
 import {
   createShoppingList,
   deleteShoppingList,
@@ -65,16 +64,20 @@ export default function Dashboard() {
   );
 
   const [newItem, setNewItem] = useState("");
-  const noteDialog = useRef<HTMLDialogElement>(null);
+  const [quantity, setQuantity] = useState(1);
+  const itemDialog = useRef<HTMLDialogElement>(null);
   const [itemNote, setItemNote] = useState("");
   const [savingItem, setSavingItem] = useState(false);
   const [itemError, setItemError] = useState("");
 
-  const openItemNote = () => {
-    if (!selectedList || !newItem.trim()) return;
+  const openAddItem = () => {
+    if (!selectedList) return;
+    setNewItem("");
+    setQuantity(1);
+    setCategory("General");
     setItemNote("");
     setItemError("");
-    noteDialog.current?.showModal();
+    itemDialog.current?.showModal();
   };
   const [category, setCategory] = useState("General");
   const [showChecked, setShowChecked] = useState(true);
@@ -139,7 +142,15 @@ export default function Dashboard() {
   );
 
   const addItem = async () => {
-    if (!selectedList || !newItem.trim() || savingItem) return;
+    if (!selectedList || savingItem) return;
+    if (!newItem.trim()) {
+      setItemError("Enter an item name.");
+      return;
+    }
+    if (!Number.isInteger(quantity) || quantity < 1 || quantity > 99) {
+      setItemError("Choose a quantity from 1 to 99.");
+      return;
+    }
     setSavingItem(true);
     setItemError("");
     try {
@@ -147,6 +158,7 @@ export default function Dashboard() {
       const item: ShoppingItem = {
         id: crypto.randomUUID(),
         name: newItem.trim(),
+        quantity,
         category,
         completed: false,
         note: itemNote.trim() || undefined,
@@ -160,7 +172,7 @@ export default function Dashboard() {
       ).unwrap();
       setNewItem("");
       setItemNote("");
-      noteDialog.current?.close();
+      itemDialog.current?.close();
     } catch {
       setItemError("Could not add the item. Please try again.");
     } finally {
@@ -296,16 +308,30 @@ export default function Dashboard() {
 
   return (
     <div className="app-shell">
-      <dialog ref={noteDialog} className="item-note-dialog" aria-labelledby="item-note-title" onCancel={(event) => { if (savingItem) event.preventDefault(); }}>
+      <dialog ref={itemDialog} className="item-note-dialog" aria-labelledby="item-note-title" onCancel={(event) => { if (savingItem) event.preventDefault(); }}>
         <form onSubmit={(event) => { event.preventDefault(); void addItem(); }}>
-          <h2 id="item-note-title">Add a note</h2>
-          <p>Adding <strong>{newItem}</strong> to your list.</p>
-          <label htmlFor="item-note">Note (optional)</label>
-          <textarea id="item-note" autoFocus value={itemNote} maxLength={500} onChange={(event) => setItemNote(event.target.value)} placeholder="For example: 2 litres, lactose-free" disabled={savingItem} />
+          <h2 id="item-note-title">Add item</h2>
+          <p>Enter the details for your shopping list.</p>
+          <label htmlFor="item-name">Item name</label>
+          <input id="item-name" autoFocus required maxLength={120} value={newItem} onChange={(event) => setNewItem(event.target.value)} placeholder="For example: Milk" disabled={savingItem} />
+          <label htmlFor="item-quantity">Quantity</label>
+          <select id="item-quantity" value={quantity} onChange={(event) => setQuantity(Number(event.target.value))} disabled={savingItem}>
+            {Array.from({ length: 99 }, (_, index) => index + 1).map((number) => (
+              <option key={number} value={number}>{number}</option>
+            ))}
+          </select>
+          <label htmlFor="item-category">Category</label>
+          <select id="item-category" value={category} onChange={(event) => setCategory(event.target.value)} disabled={savingItem}>
+            {["General", "Dairy", "Bakery", "Meat", "Vegetables", "Fruits", "Household", "Personal Care"].map((name) => (
+              <option key={name}>{name}</option>
+            ))}
+          </select>
+          <label htmlFor="item-note">Description (optional)</label>
+          <textarea id="item-note" value={itemNote} maxLength={500} onChange={(event) => setItemNote(event.target.value)} placeholder="For example: lactose-free, 2-litre bottle" disabled={savingItem} />
           <small>{itemNote.length}/500 characters</small>
           {itemError && <p role="alert" className="error-box">{itemError}</p>}
           <div className="modal-actions">
-            <button type="button" className="small-button" disabled={savingItem} onClick={() => noteDialog.current?.close()}>Cancel</button>
+            <button type="button" className="small-button" disabled={savingItem} onClick={() => itemDialog.current?.close()}>Cancel</button>
             <button type="submit" className="brutal-button blue" disabled={savingItem}>{savingItem ? "Adding..." : "Add item"}</button>
           </div>
         </form>
@@ -335,9 +361,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <button className="logout-link" onClick={() => dispatch(logout())}>
-          <LogOut /> LOG OUT
-        </button>
+        <LogoutButton />
       </aside>
 
       {mobileNav && (
@@ -449,17 +473,7 @@ export default function Dashboard() {
                     </button>
                     <div>
                       <h3>{selectedList.name}</h3>
-                      {selectedList && (
-                        <div className="progress-row">
-                          <span>
-                            {completed} OF {total} ITEMS CHECKED
-                          </span>
-                          <div className="progress">
-                            <span style={{ width: `${percent}%` }} />
-                          </div>
-                          <b>{percent}%</b>
-                        </div>
-                      )}
+
                     </div>
                   </div>
 
@@ -542,40 +556,22 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                <div
-                  className="add-item"
-                  style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}
-                >
-                  <input
-                    placeholder="Add your item here..."
-                    value={newItem}
-                    onChange={(e) => setNewItem(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && openItemNote()}
-                    style={{ flex: 1, minWidth: 0 }}
-                  />
-                  <select
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    style={{ minWidth: "180px" }}
-                  >
-                    <option>General</option>
-                    <option>Dairy</option>
-                    <option>Bakery</option>
-                    <option>Meat</option>
-                    <option>Vegetables</option>
-                    <option>Fruits</option>
-                    <option>Household</option>
-                    <option>Personal Care</option>
-                  </select>
-                  <button
-                    className="brutal-button blue"
-                    onClick={openItemNote}
-                    style={{ whiteSpace: "nowrap" }}
-                  >
+                <div className="list-progress-actions">
+                      {selectedList && (
+                        <div className="progress-row">
+                          <span>
+                            {completed} OF {total} ITEMS CHECKED
+                          </span>
+                          <div className="progress">
+                            <span style={{ width: `${percent}%` }} />
+                          </div>
+                          <b>{percent}%</b>
+                        </div>
+                      )}
+                  <button type="button" className="brutal-button blue" onClick={openAddItem}>
                     <Plus /> ADD ITEM
                   </button>
                 </div>
-
                 <SearchField
                   label="Search items in this list"
                   placeholder="Search items by name or category..."
@@ -635,6 +631,7 @@ export default function Dashboard() {
                       </button>
                                             <div className="item-description">
                         <span className="item-name">{item.name}</span>
+                        <span className="item-quantity">Qty: {item.quantity ?? 1}</span>
                         {item.note && <p className="item-note">{item.note}</p>}
                       </div>
                       <span

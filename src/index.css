@@ -847,7 +847,7 @@ h1, h2, h3 { font-weight: 800; line-height: 1.2; }
 .account-section h2 { font-size: 22px; margin: 0 0 8px; }
 .account-section p { font-size: 14px; line-height: 1.5; color: #596273; margin-bottom: 20px; }
 .account-section label, .item-note-dialog label { display: block; font-size: 14px; font-weight: 600; margin: 16px 0 6px; }
-.account-section input { width: 100%; padding: 10px 12px; border: 1px solid #b8c0cb; border-radius: 6px; font-size: 16px; }
+.account-section input { width: 100%; padding: 10px 12px; border: 3px solid #111; border-radius: 0; font-size: 16px; }
 .account-section input:focus { outline: 2px solid #2563eb; outline-offset: 1px; }
 .account-section input[readonly] { background: #f3f4f6; color: #596273; }
 .account-section small { display: block; margin-top: 6px; color: #596273; font-size: 12px; }
@@ -869,4 +869,33 @@ h1, h2, h3 { font-weight: 800; line-height: 1.2; }
   .account-summary, .account-form { padding: 20px; }
   .account-actions { align-items: stretch; flex-direction: column; }
   .login-card { padding: 22px; }
+}
+
+.item-note-dialog { border-radius: 0; }
+.item-note-dialog input, .item-note-dialog select, .item-note-dialog textarea {
+  width: 100%;
+  border: 3px solid #111;
+  border-radius: 0;
+  padding: 10px 12px;
+  background: white;
+  font: inherit;
+  font-size: 16px;
+}
+.item-note-dialog :is(input, select, textarea):focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+.item-quantity { display: inline-block; margin-left: 10px; font-size: 12px; font-weight: 700; }
+
+.logout-dialog { position: fixed; inset: 0; margin: auto; border-radius: 0; max-height: calc(100dvh - 32px); overflow-y: auto; width: min(460px, calc(100% - 32px)); }
+.logout-dialog::backdrop { background: rgb(0 0 0 / 60%); }
+.logout-dialog p { margin: 16px 0 24px; font-size: 16px; font-weight: 600; }
+.list-progress-actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 20px 0; }
+.list-progress-actions .progress-row { margin: 0; flex-wrap: wrap; min-width: 0; }
+.list-progress-actions > button { flex-shrink: 0; margin-left: auto; }
+@media (max-width: 520px) {
+  .list-progress-actions { gap: 12px; }
+  .list-progress-actions .progress-row { flex: 1; }
+  .list-progress-actions .progress-row > span { width: 100%; }
+  .list-progress-actions .progress { width: min(100px, 65%); }
 }
