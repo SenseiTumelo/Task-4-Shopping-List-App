@@ -88,13 +88,9 @@ cd shopping-list-app
 npm install
 ```
 
-Start JSON Server:
 
-```bash
-npm run server
-```
 
-Start the application:
+Start the application and JSON Server:
 
 ```bash
 npm run dev
